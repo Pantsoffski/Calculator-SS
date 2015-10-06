@@ -1,0 +1,115 @@
+.calcTable {
+    font-size: 0.9rem;
+    background-color: #eaf2d3;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#8ed058), to(#f4f8e9));
+    background-image: -webkit-linear-gradient(top, #eaf2d3, #f4f8e9);
+    background-image: -moz-linear-gradient(top, #eaf2d3, #f4f8e9);
+    background-image: -ms-linear-gradient(top, #eaf2d3, #f4f8e9);
+    background-image: -o-linear-gradient(top, #eaf2d3, #f4f8e9);
+    background-image: linear-gradient(to bottom, #eaf2d3, #f4f8e9);
+    width: 50%;
+    border-collapse: separate;
+    border-spacing: 5px 5px;
+}
+
+.calcTh {
+    padding: 5px;
+    background: #cccccc;
+}
+
+.calcTd {
+    padding: 5px;
+    text-align: center;
+}
+
+.calcTdH {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.calcBt, .calcSwitchBt {
+    margin: 7px;
+    border: 1px solid #CE9A01 !important;
+    -webkit-box-shadow: #FFF563 0px 1px 0px inset;
+    -moz-box-shadow: #FFF563 0px 1px 0px inset;
+    box-shadow: #FFF563 0px 1px 0px inset;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-family: arial, helvetica, sans-serif;
+    padding: 7px 14px 7px 14px !important;
+    text-decoration: none !important;
+    display: inline-block;
+    text-shadow: 0px 1px 0 rgba(255,255,255,0.44);
+    font-weight: bold !important;
+    color: #63460C !important;
+    background-color: #eaf2d3 !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#eaf2d3), to(#96c56f)) !important;
+    background-image: -webkit-linear-gradient(top, #eaf2d3, #96c56f) !important;
+    background-image: -moz-linear-gradient(top, #eaf2d3, #96c56f) !important;
+    background-image: -ms-linear-gradient(top, #eaf2d3, #96c56f) !important;
+    background-image: -o-linear-gradient(top, #eaf2d3, #96c56f) !important;
+    background-image: linear-gradient(to bottom, #eaf2d3, #96c56f) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#eaf2d3, endColorstr=#96c56f);
+}
+
+.calcBt:hover, .calcSwitchBt:hover {
+    border: 1px solid #CE9A01 !important;
+    background-color: #8ed058 !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#8ed058), to(#7bb64b)) !important;
+    background-image: -webkit-linear-gradient(top, #8ed058, #7bb64b) !important;
+    background-image: -moz-linear-gradient(top, #8ed058, #7bb64b) !important;
+    background-image: -ms-linear-gradient(top, #8ed058, #7bb64b) !important;
+    background-image: -o-linear-gradient(top, #8ed058, #7bb64b) !important;
+    background-image: linear-gradient(to bottom, #8ed058, #7bb64b) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#8ed058, endColorstr=#7bb64b);
+}
+
+.calcLp, .calcWynikPow, .calcWynikKub {
+    font-size: 0.9rem;
+}
+
+.calcDl, .calcSz, .calcWy {
+    width: 50px;
+}
+
+.calcPr {
+    font-size: 0.9rem;
+    text-align: left;
+    border-bottom: thin solid black;
+}
+
+.calcPrNum {
+    font-size: 0.9rem;
+    text-align: center;
+    border-bottom: thin solid black;
+}
+
+.deleteX {
+    float: right;
+    border-radius: 50%;
+    padding: 0;
+}
+
+#calcTheme {
+    background-color: #A7C942;
+    border: 2px solid #748c2e;
+    color: #FFFFFF;
+    font-size: 1.8rem;
+}
+
+#calcBtTable {
+    font-size: 0.9rem;
+    border: none;
+    width: 28%;
+}
+
+#calcGrzej, #calcWent {
+    display: none;
+}
+
+.calcTdHdodat {
+    border-style: none;
+    margin: 0 100px 0 100px;
+}
