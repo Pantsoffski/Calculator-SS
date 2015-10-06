@@ -19,6 +19,10 @@ if (isset($_POST['Label1']) && $_POST['form_check'] == 1) { //wybór strony kalk
 }
 
 function display_calc_results_vent($smarty, $produkty, $db) {
+
+//    $liczba = 15000;
+//    echo number_format($liczba, 2, ',', ' '); //waluta z liczby
+
     $kubatura = $_POST['calcWynikKubSumWent'];
     $min_wydajnosc_centr = $kubatura * 0.7;
     $centrala_dobor = product_data_from_db_by_efficiency($db, $min_wydajnosc_centr); //pozyskiwanie danych wymaganej centrali
@@ -47,7 +51,6 @@ function display_calc_results_vent($smarty, $produkty, $db) {
         }
     }
     foreach ($_POST['calcWynikKub'] as $value) { //dodatkowy amenostat dla pomioeszczeń pow 90m3
-        echo $value.' ';
         if ($value > 90) {
             if ($ameno_nawiewny != 0) {
                 $ameno_nawiewny++;
@@ -57,12 +60,12 @@ function display_calc_results_vent($smarty, $produkty, $db) {
             }
         }
     }
-    if ($ameno_nawiewny != 0) {
+    if ($ameno_nawiewny != 0) { //przypisywanie id jeśli są jakieś nawiewne
         $produkty->retrieve('edbd6063-98f9-686d-f7ea-560d07e391ad');
         $ameno_naw['name'] = $produkty->name;
         $smarty->assign("amenostat_naw", array($ameno_naw['name'], $ameno_nawiewny));
     }
-    if ($ameno_wywiewny != 0) {
+    if ($ameno_wywiewny != 0) { //przypisywanie id jeśli są jakieś wywiewne
         $produkty->retrieve('f0773ad8-7711-fdda-3900-560d07f85903');
         $ameno_wyw['name'] = $produkty->name;
         $smarty->assign("amenostat_wyw", array($ameno_wyw['name'], $ameno_wywiewny));

@@ -42,19 +42,18 @@ function doCalcWent() { //liczenie kalkulatora wentylacji
         var total_volume = $('.calcDl', this).val() * $('.calcSz', this).val() * $('.calcWy', this).val();
         var total_volume_s = (Math.round(total_volume * 100) / 100).toFixed(1);
         $('.calcWynikKub', this).html(total_volume_s);
-        
     });
 
     var total_volume_all = 0;
-    $('.calcDaneWe .calcWynikKub').each(function () {
+    $('.calcDaneWe .calcWynikKub').each(function () { // kubatura całkowita
         total_volume_all = parseInt($(this).html()) + total_volume_all;
         $('#calcWynikKubSum').html(total_volume_all);
         $('#calcWynikKubSumWent').val(total_volume_all);
     });
 
-    var rooms_number = $('.calcDaneWe').length - 1;
+    var rooms_number = $('.calcDaneWe').length - 1; // liczba pokoi
     $('#calcWynikIlSum').html(rooms_number);
-    
+
     $('.calcDaneWe').each(function (index) {
         $("input[name='calcWynikKub']", this).attr('value', $('.calcWynikKub').html());
         $("input[name='calcWynikKub']", this).attr('name', 'calcWynikKub' + "[" + index + "]");
@@ -141,17 +140,19 @@ $('button.deleteX').click(deleteRow);
 
 function rowCount() { //liczba porządkowa oraz id name
     if ($('#form_check').val() === '1') {
-        $('.calcDaneGrz').each(function (index) {
+        $('.calcDaneGrz').each(function (index) { //dla grzewczego
             $('.calcLp', this).html(index + '.');
             $('.calcTdH select', this).attr('name', 'LabelHeatRoom' + index);
         });
     }
-    if ($('#form_check').val() === '0') {
+    if ($('#form_check').val() === '0') { //dla wentylacyjnego
         $('.calcDaneWe').each(function (index) {
             $('.calcLp', this).html(index + '.');
             $('.calcTdH select', this).attr('name', 'LabelVentRoom' + "[" + index + "]");
-            $(".calcTdH input[name='calcWynikKub']").attr('value', $('.calcWynikKub', this).html());
-            $(".calcTdH input[name='calcWynikKub']", this).attr('name', 'calcWynikKub' + "[" + index + "]");
+
+            var kubatura_kom = parseInt($('.calcWynikKub', this).html()); //kubatura z poszczególnych pomieszczeń
+            $("[name^='calcWynikKub']", this).attr('name', 'calcWynikKub' + "[" + index + "]");
+            $("[name^='calcWynikKub[']", this).attr('value', kubatura_kom);
         });
     }
 }

@@ -86,6 +86,12 @@
     border-bottom: thin solid black;
 }
 
+.calcPrCen {
+    font-size: 0.9rem;
+    text-align: right;
+    border-bottom: thin solid black;
+}
+
 .deleteX {
     float: right;
     border-radius: 50%;

@@ -22,58 +22,89 @@
         <td class="calcTd calcPrNum">
             <span>1</span>
         </td>
-        <td class="calcTd calcPrNum">
-            <span>18540</span>
+        <td class="calcTd calcPrCen">
+            <span>18 540,00</span>
         </td>
     </tr>
     {if isset($amenostat_naw)}
-    <tr>
-        <td class="calcTd calcPrNum">
-            <span>2.</span>
-        </td>
-        <td class="calcTd calcPr">
-            <span>{$amenostat_naw[0]}</span>
-        </td>
-        <td class="calcTd calcPrNum">
-            <span>{$amenostat_naw[1]}</span>
-        </td>
-        <td class="calcTd calcPrNum">
-            <span>541</span>
-        </td>
-    </tr>
+        <tr>
+            <td class="calcTd calcPrNum">
+                <span>2.</span>
+            </td>
+            <td class="calcTd calcPr">
+                <span>{$amenostat_naw[0]}</span>
+            </td>
+            <td class="calcTd calcPrNum">
+                <span>{$amenostat_naw[1]}</span>
+            </td>
+            <td class="calcTd calcPrCen">
+                <span>541,00</span>
+            </td>
+        </tr>
     {/if}
     {if isset($amenostat_wyw)}
-    <tr>
-        <td class="calcTd calcPrNum">
-            <span>2.</span>
-        </td>
-        <td class="calcTd calcPr">
-            <span>{$amenostat_wyw[0]}</span>
-        </td>
-        <td class="calcTd calcPrNum">
-            <span>{$amenostat_wyw[1]}</span>
-        </td>
-        <td class="calcTd calcPrNum">
-            <span>541</span>
-        </td>
-    </tr>    
+        <tr>
+            <td class="calcTd calcPrNum">
+                <span>
+                    {if isset($amenostat_naw)}
+                        3.
+                    {else}
+                        2.
+                    {/if}
+                </span>
+            </td>
+            <td class="calcTd calcPr">
+                <span>{$amenostat_wyw[0]}</span>
+            </td>
+            <td class="calcTd calcPrNum">
+                <span>{$amenostat_wyw[1]}</span>
+            </td>
+            <td class="calcTd calcPrCen">
+                <span>541,00</span>
+            </td>
+        </tr>    
     {/if}
     <tr>
         <td class="calcTd calcPrNum">
-            <span>3.</span>
-        </td>
-        <td class="calcTd calcPrNum">
-            <span>1</span>
+            <span>
+                {if isset($amenostat_naw) && isset($amenostat_wyw)}
+                    4.
+                {else}
+                    3.
+                {/if}
+            </span>
         </td>
         <td class="calcTd calcPr">
             <span>{$dobor_centrali[2]}</span>
         </td>
         <td class="calcTd calcPrNum">
-            <span>1248</span>
+            <span>1</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>1 248,44</span>
         </td>
     </tr>
     <tr>
-        <td colspan="3" align="center">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="calcTd calcPrCen">
+            <span>20 329,44</span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" align="center">
+            <input    
+                style=     "float: left"
+                class=     "calcBt"
+                title=     "{$MOD.LBL_CALCULATOR_BUTTON_BACK}"
+                type=      "button"
+                name=      "button"
+                onclick=   "history.go(-1);
+                        return true;"
+                value=     "{$MOD.LBL_CALCULATOR_BUTTON_BACK}"
+                >
+
             <input     
                 class=     "calcBt"
                 title=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
@@ -82,15 +113,6 @@
                 onclick=   "addProductToCard('{$dobor_centrali[0]},{$dobor_centrali[3]}');
                         location.href = 'index.php?module=EcmB2BProducts&action=ShoppingCard';"
                 value=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
-                >
-
-            <input     
-                class=     "calcBt"
-                title=     "{$MOD.LBL_CALCULATOR_BUTTON_KONTAKT}"
-                type=      "button"
-                name=      "button"
-                onclick=   ""
-                value=     "{$MOD.LBL_CALCULATOR_BUTTON_KONTAKT}"
                 >
         </td>
     </tr>
