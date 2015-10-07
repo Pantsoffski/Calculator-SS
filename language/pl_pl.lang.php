@@ -483,7 +483,6 @@ $mod_strings = array(
     'LBL_CALCULATOR_HEAT_SOURCE' => 'Rodaj źródła ciepła:',
     'LBL_EFFICIENCY' => 'Efektywność',
     'LBL_CALCULATOR_PRODUCT_QUANTITY' => 'Ilość',
-    'LBL_CALCULATOR_HEAT_POWER' => 'Moc cieplna [kW]',
     'LBL_CALCULATOR_LP' => 'L.p.',
     'LBL_CALCULATOR_ROOM_TYPE' => 'Typ pomieszczenia',
     'LBL_CALCULATOR_LENGTH' => 'Długość [m]',

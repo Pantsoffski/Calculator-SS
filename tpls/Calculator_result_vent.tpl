@@ -7,9 +7,9 @@
         <th colspan="4" class="calcThTd" id="calcTheme">{$MOD.LBL_CALCULATOR_PRODUCTS_LIST}</th>
     </tr>
     <tr class="calcDaneWe">
-        <th class="calcTh">{$MOD.LBL_CALCULATOR_LP}</th>
+        <th class="calcTh" width="5%">{$MOD.LBL_CALCULATOR_LP}</th>
         <th class="calcTh">{$MOD.LBL_CALCULATOR_PRODUCT_NAME}</th>
-        <th class="calcTh" width="15%">{$MOD.LBL_CALCULATOR_PRODUCT_QUANTITY}</th>
+        <th class="calcTh" width="5%">{$MOD.LBL_CALCULATOR_PRODUCT_QUANTITY}</th>
         <th class="calcTh" width="15%">{$MOD.LBL_CALCULATOR_PRODUCT_PRICE}</th>
     </tr>
     <tr>
