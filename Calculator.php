@@ -26,19 +26,21 @@ function display_calc_results_vent($smarty, $produkty, $db) {
     $kubatura = $_POST['calcWynikKubSumWent'];
     $min_wydajnosc_centr = $kubatura * 0.7;
     $centrala_dobor = product_data_from_db_by_efficiency($db, $min_wydajnosc_centr); //pozyskiwanie danych wymaganej centrali
-
-    if ($kubatura <= 500) { //dopasowywanie zestawu montazowego
+    if ($kubatura < 500) { //dopasowywanie zestawu montazowego
         $produkty->retrieve('49ae087c-56bb-e6a9-9f11-560d07b2b8ea');
         $zestaw_mon['name'] = $produkty->name;
         $zestaw_mon['id'] = '49ae087c-56bb-e6a9-9f11-560d07b2b8ea';
+        $price_mon = product_price_from_db($db, $zestaw_mon['id']);
     } elseif ($kubatura <= 700) {
         $produkty->retrieve('75f00037-2273-3c18-acf3-560d07b38107');
         $zestaw_mon['name'] = $produkty->name;
         $zestaw_mon['id'] = '75f00037-2273-3c18-acf3-560d07b38107';
+        $price_mon = product_price_from_db($db, $zestaw_mon['id']);
     } elseif ($kubatura > 700) {
         $produkty->retrieve('a24706a4-68b7-a980-ef1c-560d07cb6639');
         $zestaw_mon['name'] = $produkty->name;
         $zestaw_mon['id'] = 'a24706a4-68b7-a980-ef1c-560d07cb6639';
+        $price_mon = product_price_from_db($db, $zestaw_mon['id']);
     }
 
     $ameno_nawiewny = 0;
@@ -126,14 +128,22 @@ function display_calc_results_heat($smarty, $produkty, $db) {
 //    return $a;
 //}
 
-function product_data_from_db_by_efficiency($db, $efficiency_need) {
+function product_data_from_db_by_efficiency($db, $efficiency_need) { //
     $efficiency_need_max = $efficiency_need + 500;
-    $result = $db->query("select id,name,efficiency from ecmproducts where efficiency between $efficiency_need AND $efficiency_need_max order by efficiency desc");
+    $result = $db->query("select id,name,efficiency from ecmproducts where efficiency between $efficiency_need and $efficiency_need_max and product_category_name='Centrala' order by efficiency desc");
     while (($row = $db->fetchByAssoc($result)) != null) {
         $n['id'] = $row['id'];
         $n['name'] = $row['name'];
     }
     return $n;
+}
+
+function product_price_from_db($db, $id) {
+    $result = $db->query("select price from ecmprices_ecmproducts where ecmproduct_id=$id");
+    while (($row = $db->fetchByAssoc($result)) != null) {
+        $p['price'] = $row['price'];
+    }
+    return $p;
 }
 
 switch ($_POST['job']) { //dodawanie do koszyka, switch w razie do rozubowy

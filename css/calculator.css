@@ -119,3 +119,7 @@
     border-style: none;
     margin: 0 100px 0 100px;
 }
+
+.AddNew {
+    border-radius: 10px;
+}
