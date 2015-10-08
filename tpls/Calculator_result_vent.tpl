@@ -23,7 +23,7 @@
             <span>1</span>
         </td>
         <td class="calcTd calcPrCen">
-            <span>18 540,00</span>
+            <span>{$dobor_centrali[2]}</span>
         </td>
     </tr>
     {if isset($amenostat_naw)}
@@ -38,7 +38,7 @@
                 <span>{$amenostat_naw[1]}</span>
             </td>
             <td class="calcTd calcPrCen">
-                <span>541,00</span>
+                <span>{$amenostat_naw[2]}</span>
             </td>
         </tr>
     {/if}
@@ -60,7 +60,7 @@
                 <span>{$amenostat_wyw[1]}</span>
             </td>
             <td class="calcTd calcPrCen">
-                <span>541,00</span>
+                <span>{$amenostat_wyw[2]}</span>
             </td>
         </tr>    
     {/if}
@@ -75,13 +75,13 @@
             </span>
         </td>
         <td class="calcTd calcPr">
-            <span>{$dobor_centrali[2]}</span>
+            <span>{$dobor_centrali[3]}</span>
         </td>
         <td class="calcTd calcPrNum">
             <span>1</span>
         </td>
         <td class="calcTd calcPrCen">
-            <span>1 248,44</span>
+            <span>{$dobor_centrali[5]}</span>
         </td>
     </tr>
     <tr>
@@ -89,7 +89,7 @@
         <td></td>
         <td></td>
         <td class="calcTd calcPrCen">
-            <span>20 329,44</span>
+            <span id="calcPrSuma">20 329,44</span>
         </td>
     </tr>
     <tr>
@@ -110,7 +110,7 @@
                 title=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
                 type=      "button"
                 name=      "button"
-                onclick=   "addProductToCard('{$dobor_centrali[0]},{$dobor_centrali[3]}');
+                onclick=   "addProductToCard('{$dobor_centrali[0]},{$dobor_centrali[4]}{if isset($amenostat_naw)},{$amenostat_naw[3]}{/if}{if isset($amenostat_wyw)},{$amenostat_wyw[3]}{/if}');
                         location.href = 'index.php?module=EcmB2BProducts&action=ShoppingCard';"
                 value=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
                 >
