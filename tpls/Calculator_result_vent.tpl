@@ -89,7 +89,7 @@
         <td></td>
         <td></td>
         <td class="calcTd calcPrCen">
-            <span id="calcPrSuma">20 329,44</span>
+            <span>{$dobor_centrali[6]}</span>
         </td>
     </tr>
     <tr>

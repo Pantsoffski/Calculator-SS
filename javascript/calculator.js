@@ -12,25 +12,11 @@ function doCalcGrzej() { //liczenie kalkulatora grzewczego
     $('.calcDaneGrz .calcWynikKub').each(function () {
         total_volume_all = parseInt($(this).html()) + total_volume_all;
         $('#calcWynikKubSumGrz').html(total_volume_all);
+        $('#calcWynikKubSumGrze').val(total_volume_all);
     });
 
     var rooms_number = $('.calcDaneGrz').length - 1;
     $('#calcWynikIlSumGrz').html(rooms_number);
-
-//    var width = $('input.calcNum').eq(0).val();
-//    var length = $('input.calcNum').eq(1).val();
-//    var height = $('input.calcNum').eq(2).val();
-//    var temp = $('input.calcNum').eq(3).val();
-//    var insulate = $(':selected').eq(0).val();
-//    var total_volume = width * length * height;
-//    var total_volume_s = (Math.round(total_volume * 100) / 100).toFixed(1);
-//    $('#resultVol').html(total_volume_s);
-//    var total_power_kcal = total_volume * (Number(temp) + 5) * insulate;
-//    var total_power_kcal_s = (Math.round(total_power_kcal * 100) / 100).toFixed(1);
-//    $('#resultKcal').html(total_power_kcal_s);
-//    var total_power_kw = total_power_kcal / 860;
-//    var total_power_kw_s = (Math.round(total_power_kw * 100) / 100).toFixed(1);
-//    $('#resultKw').html(total_power_kw_s);
 }
 $('table#calcGrzej').click(doCalcGrzej);
 

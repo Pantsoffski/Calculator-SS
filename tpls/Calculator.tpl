@@ -13,6 +13,7 @@
 <form name="ecmproductsCalculator" id="ecmproductsCalculator" method="POST" action="index.php?module=EcmB2BProducts&action=Calculator">
     <input id="form_check" name="form_check" type="hidden"/>
     <input id="calcWynikKubSumWent" name="calcWynikKubSumWent" type="hidden"/>
+    <input id="calcWynikKubSumGrze" name="calcWynikKubSumGrze" type="hidden"/>
 
     <table border="2" cellspacing="0" cellpadding="0" class="calcTable" id="calcGrzej" align="center">
         <tr>
@@ -40,9 +41,9 @@
                     <option value="4" >Wiatrołap</option>
                     <option value="5" >Kuchnia</option>
                     <option value="6" >WC</option>
-                    <option value="7" >Łazienka</option>
+                    <option value="7" >Pralnia</option>
                     <option value="8" >Garderoba</option>
-                    <option value="9" >Pralnia</option>
+                    <option value="9" >Łazienka</option>
                 </select>
                 <button class="deleteX" type="button">X</button></td>
             <td class="calcTdH"><input class="calcDl" name='LabelVentDl' type="number" value="5" step="0.1" required/></td>
@@ -63,28 +64,29 @@
         </tr>
         <tr>
             <td class="calcTdH calcTdHdodat" colspan="7"><b>{$MOD.LBL_CALCULATOR_INSULATE}</b>
-                <select id="Selectorek" name='Label1'>
-                    <option value="3.5" title="(prosty budynek z drewna lub blachy falistej)">Nieizolowany</option>
-                    <option value="2.45" title="(prosta konstrukcja, pojedyncza warstwa z cegieł, proste okna i dach)">Słaba izolacja</option>
-                    <option value="1.45" title="(konstrukcja standardowa, podwójna warstwa cegieł, niewiele okien, standardowo zamknięty dach)">Średnia izolacja</option>
-                    <option value="0.75" title="(konstrukcja zaawansowana, podwójnie izolowana cegła, niewiele okien podwójnych, solidny fundament, dach z materiałów dobrze izolujących)">Dobra izolacja</option>
+                <select id="Selectorek" name='LabelWspIzo'>
+                    <option value="60">Słaba</option>
+                    <option value="50">Średnia</option>
+                    <option value="35">Dobra</option>
+                    <option value="25">Bardzo dobra</option>
                 </select>
             </td>
         </tr>
         <tr>
             <td class="calcTdH calcTdHdodat" colspan="7"><b>{$MOD.LBL_CALCULATOR_TYPE_HEAT}</b>
-                <select name='Label6'>
-                    <option value="1">Grzejnik ścienny</option>
-                    <option value="2">Podłogowa</option>
+                <select name='LabelTypInstal'>
+                    <option value="1">Tylko źródło ciepła</option>
+                    <option value="2">Źródło ciepła + grzejniki</option>
+                    <option value="3">Źródło ciepła + ogrzewanie podłogowe</option>
                 </select>
             </td>
         </tr>
         <tr>
             <td class="calcTdH calcTdHdodat" colspan="7"><b>{$MOD.LBL_CALCULATOR_HEAT_SOURCE}</b>
-                <select name='Label7'>
+                <select name='LabelTypZrCiep'>
                     <option value="1">Pompa ciepła</option>
-                    <option value="2">Gaz</option>
-                    <option value="3">Olej opałowy</option>
+                    <option value="2">Kocioł gazowy</option>
+                    <option value="3">Kocioł olejowy</option>
                 </select>
             </td>
         </tr>

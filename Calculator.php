@@ -8,11 +8,11 @@ $smarty = new Sugar_Smarty();
 $produkty = new EcmB2BProduct();
 $smarty->assign("MOD", $mod_strings);
 
-if (!isset($_POST['Label1']) || !isset($_POST['LabelVent1'])) { //pokazywanie strony kalkulatora
+if (!isset($_POST['LabelHeatRoom']) || !isset($_POST['LabelVent1'])) { //pokazywanie strony kalkulatora
     $smarty->display('modules/EcmB2BProducts/tpls/Calculator.tpl');
 }
 
-if (isset($_POST['Label1']) && $_POST['form_check'] == 1) { //wybór strony kalkulatora - ogrzewania lub wentylacji
+if (isset($_POST['LabelHeatRoom1']) && $_POST['form_check'] == 1) { //wybór strony wyników kalkulatora - ogrzewania lub wentylacji
     display_calc_results_heat($smarty, $produkty, $db);
 } elseif (isset($_POST['LabelVentRoom']) && $_POST['form_check'] == 0) {
     display_calc_results_vent($smarty, $produkty, $db);
@@ -24,36 +24,43 @@ function display_calc_results_vent($smarty, $produkty, $db) {
     $centrala_dobor = product_data_from_db_by_efficiency($db, $min_wydajnosc_centr); //pozyskiwanie danych wymaganej centrali
     $cena = product_price_from_db($db, $centrala_dobor['id']); //cena centrali
     $cantrala_cena = $cena['cena'];
+    $suma_cena = $cena['cenao'];
+
     if ($kubatura <= 300) { //dopasowywanie zestawu montazowego
         $produkty->retrieve('49ae087c-56bb-e6a9-9f11-560d07b2b8ea');
         $zestaw_mon['name'] = $produkty->name;
         $zestaw_mon['id'] = '49ae087c-56bb-e6a9-9f11-560d07b2b8ea';
         $cena = product_price_from_db($db, $zestaw_mon['id']);
         $zestaw_mon['cena'] = $cena['cena'];
+        $suma_cena += $cena['cenao'];
     } elseif ($kubatura <= 400) {
         $produkty->retrieve('75f00037-2273-3c18-acf3-560d07b38107');
         $zestaw_mon['name'] = $produkty->name;
         $zestaw_mon['id'] = '75f00037-2273-3c18-acf3-560d07b38107';
         $cena = product_price_from_db($db, $zestaw_mon['id']);
         $zestaw_mon['cena'] = $cena['cena'];
+        $suma_cena += $cena['cenao'];
     } elseif ($kubatura <= 500) {
         $produkty->retrieve('a24706a4-68b7-a980-ef1c-560d07cb6639');
         $zestaw_mon['name'] = $produkty->name;
         $zestaw_mon['id'] = 'a24706a4-68b7-a980-ef1c-560d07cb6639';
         $cena = product_price_from_db($db, $zestaw_mon['id']);
         $zestaw_mon['cena'] = $cena['cena'];
-    }elseif ($kubatura <= 600) {
+        $suma_cena += $cena['cenao'];
+    } elseif ($kubatura <= 600) {
         $produkty->retrieve('f24706a4-68b7-a980-ef1c-560d07cb6748');
         $zestaw_mon['name'] = $produkty->name;
         $zestaw_mon['id'] = 'f24706a4-68b7-a980-ef1c-560d07cb6748';
         $cena = product_price_from_db($db, $zestaw_mon['id']);
         $zestaw_mon['cena'] = $cena['cena'];
-    }elseif ($kubatura > 600) {
+        $suma_cena += $cena['cenao'];
+    } elseif ($kubatura > 600) {
         $produkty->retrieve('f55706a4-68b7-a980-ef1c-560d07cb7721');
         $zestaw_mon['name'] = $produkty->name;
         $zestaw_mon['id'] = 'f55706a4-68b7-a980-ef1c-560d07cb7721';
         $cena = product_price_from_db($db, $zestaw_mon['id']);
         $zestaw_mon['cena'] = $cena['cena'];
+        $suma_cena += $cena['cenao'];
     }
 
     $ameno_nawiewny = 0;
@@ -61,12 +68,12 @@ function display_calc_results_vent($smarty, $produkty, $db) {
     foreach ($_POST['LabelVentRoom'] as $index => $value) { //dobór anemostatu (zaworu wentylacyjnego)
         if ($value <= 3) {
             $ameno_nawiewny++;
-            if($_POST['calcWynikKub'][$index] > 90){ //dodatkowy amenostat dla pomioeszczeń pow 90m3
+            if ($_POST['calcWynikKub'][$index] > 90) { //dodatkowy amenostat dla pomioeszczeń pow 90m3
                 $ameno_nawiewny++;
             }
         } elseif ($value > 3 && $value <= 9) {
             $ameno_wywiewny++;
-            if($_POST['calcWynikKub'][$index] > 90){ //dodatkowy amenostat dla pomioeszczeń pow 90m3
+            if ($_POST['calcWynikKub'][$index] > 90) { //dodatkowy amenostat dla pomioeszczeń pow 90m3
                 $ameno_wywiewny++;
             }
         }
@@ -77,6 +84,7 @@ function display_calc_results_vent($smarty, $produkty, $db) {
         $ameno_naw['name'] = $produkty->name;
         $cena = product_price_from_db($db, $ameno_naw['id']);
         $ameno_naw['cena'] = $cena['cenao'] * $ameno_nawiewny;
+        $suma_cena += $ameno_naw['cena'];
         $ameno_naw['cena'] = number_format($ameno_naw['cena'], 2, ',', ' ');
         $smarty->assign("amenostat_naw", array($ameno_naw['name'], $ameno_nawiewny, $ameno_naw['cena'], $ameno_naw['id']));
     }
@@ -86,57 +94,25 @@ function display_calc_results_vent($smarty, $produkty, $db) {
         $ameno_wyw['name'] = $produkty->name;
         $cena = product_price_from_db($db, $ameno_wyw['id']);
         $ameno_wyw['cena'] = $cena['cenao'] * $ameno_wywiewny;
+        $suma_cena += $ameno_wyw['cena'];
         $ameno_wyw['cena'] = number_format($ameno_wyw['cena'], 2, ',', ' ');
         $smarty->assign("amenostat_wyw", array($ameno_wyw['name'], $ameno_wywiewny, $ameno_wyw['cena'], $ameno_wyw['id']));
     }
 
-    $smarty->assign("dobor_centrali", array($centrala_dobor['id'], $centrala_dobor['name'], $cantrala_cena, $zestaw_mon['name'], $zestaw_mon['id'], $zestaw_mon['cena']));
+    $suma_cena = number_format($suma_cena, 2, ',', ' ');
+    $smarty->assign("dobor_centrali", array($centrala_dobor['id'], $centrala_dobor['name'], $cantrala_cena, $zestaw_mon['name'], $zestaw_mon['id'], $zestaw_mon['cena'], $suma_cena));
     $smarty->display('modules/EcmB2BProducts/tpls/Calculator_result_vent.tpl');
 }
 
 function display_calc_results_heat($smarty, $produkty, $db) {
-//    $width = sanitize_calc_input("Label1");
-//    $length = sanitize_calc_input("Label2");
-//    $area = $width * $length;
-//    $height = sanitize_calc_input("Label3");
-//    $temp = sanitize_calc_input("Label4") + 5;
-//    $insulate = sanitize_calc_input("Label5");
-//    $total_volume = $width * $length * $height;
-//    $total_power_kw = $total_volume * $temp * $insulate / 860;
-//    $a = product_data_from_db($db, 128);
-//    $b = product_data_from_db($db, 165);
-//    $id_do_zamowien = "128,165";
-//    $smarty->assign("robocizna", array($a['name'], $b['name']));
-//    if ($_POST['Label6'] == 1) {
-//        $produkty->retrieve('81');
-//        $a = $produkty->name;
-//        $smarty->assign("produkty", array($a));
-//        $id_do_zamowien .= ",81";
-//    } elseif ($_POST['Label6'] == 2) {
-//        $produkty->retrieve('93');
-//        $a = $produkty->name;
-//        $smarty->assign("produkty", array($a));
-//        $id_do_zamowien .= ",93";
-//    } else {
-//        $produkty->retrieve('93');
-//        $a = $produkty->name;
-//        $a = $produkty->ekmp_description;
-//        $produkty->retrieve('81');
-//        $b = $produkty->name;
-//        $a = $produkty->ekmp_description;
-//        $smarty->assign("produkty", array($a, $b));
-//        $id_do_zamowien .= ",93,81";
-//    }
-//    if ($_POST['Label8'] == 1) {
-//        $smarty->assign("rodzaj_pieca", "Piec węglowy");
-//    } elseif ($_POST['Label8'] == 2) {
-//        $smarty->assign("rodzaj_pieca", "Piec gazowy");
-//    } elseif ($_POST['Label8'] == 3) {
-//        $smarty->assign("rodzaj_pieca", "Piec olejowy");
-//    } else {
-//        $smarty->assign("rodzaj_pieca", "Instalacja elektryczna");
-//    }
-//    $smarty->assign("ids", $id_do_zamowien);
+    $kubatura = $_POST['calcWynikKubSumGrze'];
+    $wsp_izolacji = $_POST['LabelWspIzo'];
+    $min_moc_grzewcza = $kubatura * $wsp_izolacji;
+    
+    if($_POST['LabelHeatRoom'] < 9 && $_POST['LabelTypInstal'] == 2) { //jeśli wybrał grzejniki
+        
+    }
+    
     $smarty->display('modules/EcmB2BProducts/tpls/Calculator_result_heat.tpl');
 }
 
