@@ -17,49 +17,53 @@
             <span>1.</span>
         </td>
         <td class="calcTd calcPr">
-            <span>Piec węglowy 16 kW</span>
+            <span>{$dobor_zrodla_ciepla[1]}</span>
         </td>
         <td class="calcTd calcPrNum">
             <span>1</span>
         </td>
         <td class="calcTd calcPrCen">
-            <span>7 249,00</span>
+            <span>{$dobor_zrodla_ciepla[2]}</span>
         </td>
     </tr>
+    {if isset($wymiennik_pionowy)}
     <tr>
         <td class="calcTd calcPrNum">
             <span>2.</span>
         </td>
         <td class="calcTd calcPr">
-            <span>Grzejnik</span>
+            <span>{$wymiennik_pionowy[1]}</span>
         </td>
         <td class="calcTd calcPrNum">
-            <span>2</span>
+            <span>{$wymiennik_pionowy[3]}</span>
         </td>
         <td class="calcTd calcPrCen">
-            <span>541,88</span>
+            <span>{$wymiennik_pionowy[2]}</span>
         </td>
     </tr>
+    {/if}
+    {if isset($podgrzewacz)}
     <tr>
         <td class="calcTd calcPrNum">
             <span>3.</span>
         </td>
         <td class="calcTd calcPr">
-            <span>Zestaw montażowy</span>
+            <span>{$podgrzewacz[1]}</span>
         </td>
         <td class="calcTd calcPrNum">
             <span>1</span>
         </td>
         <td class="calcTd calcPrCen">
-            <span>1 248,00</span>
+            <span>{$podgrzewacz[2]}</span>
         </td>
     </tr>
+    {/if}
     <tr>
         <td></td>
         <td></td>
         <td></td>
         <td class="calcTd calcPrCen">
-            <span>9 038,88</span>
+            <span>{$dobor_zrodla_ciepla[3]}</span>
         </td>
     </tr>
     <tr>
@@ -79,7 +83,7 @@
                 title=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
                 type=      "button"
                 name=      "button"
-                onclick=   "addProductToCard('');
+                onclick=   "addProductToCard('{$dobor_zrodla_ciepla[0]}');
                         location.href = 'index.php?module=EcmB2BProducts&action=ShoppingCard';"
                 value=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
                 >

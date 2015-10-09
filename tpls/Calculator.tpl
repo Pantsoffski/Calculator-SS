@@ -84,9 +84,10 @@
         <tr>
             <td class="calcTdH calcTdHdodat" colspan="7"><b>{$MOD.LBL_CALCULATOR_HEAT_SOURCE}</b>
                 <select name='LabelTypZrCiep'>
-                    <option value="1">Pompa ciepła</option>
-                    <option value="2">Kocioł gazowy</option>
-                    <option value="3">Kocioł olejowy</option>
+                    <option value="1">Pompa ciepła solanka/woda</option>
+                    <option value="2">Pompa ciepła powietrze/woda</option>
+                    <option value="3">Kocioł gazowy</option>
+                    <option value="4">Kocioł olejowy</option>
                 </select>
             </td>
         </tr>

@@ -109,14 +109,49 @@ function display_calc_results_heat($smarty, $produkty, $db) {
     $wsp_izolacji = $_POST['LabelWspIzo'];
     $min_moc_grzewcza = $kubatura * $wsp_izolacji;
     $min_moc_grzewcza_kw = $min_moc_grzewcza / 1000; //w kW
+    $suma_cena = 0;
     
-    if($_POST['LabelTypZrCiep'] == 1){ //jeśli wybrał kocioł gazowy
+    if($_POST['LabelTypZrCiep'] == 1){ //jeśli wybrał pompę ciepła solanka/woda
         $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Pompa ciepła");
+        $produkty->retrieve($dobor_zrodla_ciepla['id']);
+        $dobor_zrodla_ciepla['efficiency'] = $produkty->efficiency;
+        $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
+        $dobor_zrodla_ciepla['cena'] = $cena['cena'];
+        $suma_cena += $cena['cenao'];
+        
+        $podgrzewacz['id'] = '38bbcdc0-eed6-5de4-ce89-5615074a9ff4';
+        $produkty->retrieve($podgrzewacz['id']);
+        $podgrzewacz['name'] = $produkty->name;
+        $cena = product_price_from_db($db, $podgrzewacz['id']);
+        $podgrzewacz['cena'] = $cena['cena'];
+        $suma_cena += $cena['cenao'];
+        
+        $wymiennik_pionowy_ilosc = ceil(($dobor_zrodla_ciepla['efficiency'] * 1000 * 0.9) / 40);
+        $wymiennik_pionowy['id'] = 'db90a5b9-7e2d-048b-3a10-5615077f15se';
+        $produkty->retrieve($wymiennik_pionowy['id']);
+        $wymiennik_pionowy['name'] = $produkty->name;
+        $cena = product_price_from_db($db, $wymiennik_pionowy['id']);
+        $suma_cena += $cena['cenao'] * $wymiennik_pionowy_ilosc;
+        $wymiennik_pionowy['cena'] = $cena['cenao'] * $wymiennik_pionowy_ilosc;
+        $wymiennik_pionowy['cena'] = number_format($wymiennik_pionowy['cena'], 2, ',', ' ');
+        
+        $smarty->assign("wymiennik_pionowy", array($wymiennik_pionowy['id'], $wymiennik_pionowy['name'], $wymiennik_pionowy['cena'], $wymiennik_pionowy_ilosc));
+        $smarty->assign("podgrzewacz", array($podgrzewacz['id'], $podgrzewacz['name'], $podgrzewacz['cena']));
     }
-    if($_POST['LabelTypZrCiep'] == 2){ //jeśli wybrał kocioł gazowy
-        $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Kocioł gazowy");
+    if($_POST['LabelTypZrCiep'] == 2){ //jeśli wybrał pompę ciepła powietrze/woda
+        $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Pompa ciepła");
+        
+        $podgrzewacz['id'] = '38bbcdc0-eed6-5de4-ce89-5615074a9ff4';
+        $produkty->retrieve($podgrzewacz['id']);
+        $podgrzewacz['name'] = $produkty->name;
+        $cena = product_price_from_db($db, $podgrzewacz['id']);
+        $podgrzewacz['cena'] = $cena['cena'];
+        $smarty->assign("podgrzewacz", array($podgrzewacz['id'], $podgrzewacz['name'], $podgrzewacz['cena']));
     }
     if($_POST['LabelTypZrCiep'] == 3){ //jeśli wybrał kocioł gazowy
+        $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Kocioł gazowy");
+    }
+    if($_POST['LabelTypZrCiep'] == 4){ //jeśli wybrał kocioł olejowy
         $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Kocioł olejowy");
     }
     
@@ -130,7 +165,8 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         }
     }
 
-    $smarty->assign("dobor_zrodla_ciepla", array());
+    $suma_cena = number_format($suma_cena, 2, ',', ' ');
+    $smarty->assign("dobor_zrodla_ciepla", array($dobor_zrodla_ciepla['id'], $dobor_zrodla_ciepla['name'], $dobor_zrodla_ciepla['cena'], $suma_cena));
     $smarty->display('modules/EcmB2BProducts/tpls/Calculator_result_heat.tpl');
 }
 
