@@ -50,7 +50,7 @@
             <td class="calcTdH"><input class="calcSz" name='LabelVentSz' type="number" value="5" step="0.1" required/></td>
             <td class="calcTdH"><input class="calcWy" name='LabelVentWy' type="number" value="5" step="0.1" required/></td>
             <td class="calcTdH"><div class="calcWynikPow"></div></td>
-            <td class="calcTdH"><div class="calcWynikKub"></div></td>
+            <td class="calcTdH"><div class="calcWynikKub"></div><input name="calcWynikKub" type="hidden"/></td>
         </tr>
         <tr>
             <td></td>

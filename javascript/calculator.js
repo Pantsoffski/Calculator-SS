@@ -17,6 +17,11 @@ function doCalcGrzej() { //liczenie kalkulatora grzewczego
 
     var rooms_number = $('.calcDaneGrz').length - 1;
     $('#calcWynikIlSumGrz').html(rooms_number);
+    
+    $('.calcDaneGrz').each(function (index) {
+        $("input[name='calcWynikKub']", this).attr('value', $('.calcWynikKub').html());
+        $("input[name='calcWynikKub']", this).attr('name', 'calcWynikKub' + "[" + index + "]");
+    });
 }
 $('table#calcGrzej').click(doCalcGrzej);
 
@@ -97,16 +102,16 @@ function addRow() { //dodawanie kolejnych wierszy
                 '<option value="4" >Wiatrołap</option>' +
                 '<option value="5" >Kuchnia</option>' +
                 '<option value="6" >WC</option>' +
-                '<option value="7" >Łazienka</option>' +
+                '<option value="7" >Pralnia</option>' +
                 '<option value="8" >Garderoba</option>' +
-                '<option value="9" >Pralnia</option>' +
+                '<option value="9" >Łazienka</option>' +
                 '</select>' +
                 '<button class="deleteX" type="button">X</button></td>' +
                 '<td class="calcTdH"><input class="calcDl" name="LabelHeatDl" type="number" value="5" step="0.1" required/></td>' +
                 '<td class="calcTdH"><input class="calcSz" name="LabelHeatSz" type="number" value="5" step="0.1" required/></td>' +
                 '<td class="calcTdH"><input class="calcWy" name="LabelHeatWy" type="number" value="5" step="0.1" required/></td>' +
                 '<td class="calcTdH"><div class="calcWynikPow"></div></td>' +
-                '<td class="calcTdH"><div class="calcWynikKub"></div></td>' +
+                '<td class="calcTdH"><div class="calcWynikKub"></div><input name="calcWynikKub" type="hidden"/></td>' +
                 '</tr>');
     }
 
@@ -128,7 +133,11 @@ function rowCount() { //liczba porządkowa oraz id name
     if ($('#form_check').val() === '1') {
         $('.calcDaneGrz').each(function (index) { //dla grzewczego
             $('.calcLp', this).html(index + '.');
-            $('.calcTdH select', this).attr('name', 'LabelHeatRoom' + index);
+            $('.calcTdH select', this).attr('name', 'LabelHeatRoom' + "[" + index + "]");
+            
+            var kubatura_kom = parseInt($('.calcWynikKub', this).html()); //kubatura z poszczególnych pomieszczeń
+            $("[name^='calcWynikKub']", this).attr('name', 'calcWynikKub' + "[" + index + "]");
+            $("[name^='calcWynikKub[']", this).attr('value', kubatura_kom);
         });
     }
     if ($('#form_check').val() === '0') { //dla wentylacyjnego

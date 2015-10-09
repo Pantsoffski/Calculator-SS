@@ -12,7 +12,7 @@ if (!isset($_POST['LabelHeatRoom']) || !isset($_POST['LabelVent1'])) { //pokazyw
     $smarty->display('modules/EcmB2BProducts/tpls/Calculator.tpl');
 }
 
-if (isset($_POST['LabelHeatRoom1']) && $_POST['form_check'] == 1) { //wybór strony wyników kalkulatora - ogrzewania lub wentylacji
+if (isset($_POST['LabelHeatRoom']) && $_POST['form_check'] == 1) { //wybór strony wyników kalkulatora - ogrzewania lub wentylacji
     display_calc_results_heat($smarty, $produkty, $db);
 } elseif (isset($_POST['LabelVentRoom']) && $_POST['form_check'] == 0) {
     display_calc_results_vent($smarty, $produkty, $db);
@@ -108,11 +108,29 @@ function display_calc_results_heat($smarty, $produkty, $db) {
     $kubatura = $_POST['calcWynikKubSumGrze'];
     $wsp_izolacji = $_POST['LabelWspIzo'];
     $min_moc_grzewcza = $kubatura * $wsp_izolacji;
+    $min_moc_grzewcza_kw = $min_moc_grzewcza / 1000; //w kW
     
-    if($_POST['LabelHeatRoom'] < 9 && $_POST['LabelTypInstal'] == 2) { //jeśli wybrał grzejniki
-        
+    if($_POST['LabelTypZrCiep'] == 1){ //jeśli wybrał kocioł gazowy
+        $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Pompa ciepła");
+    }
+    if($_POST['LabelTypZrCiep'] == 2){ //jeśli wybrał kocioł gazowy
+        $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Kocioł gazowy");
+    }
+    if($_POST['LabelTypZrCiep'] == 3){ //jeśli wybrał kocioł gazowy
+        $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Kocioł olejowy");
     }
     
+    if ($_POST['LabelTypInstal'] == 2) { //jeśli wybrano ogrzewanie grzejnikowe
+        $kategoria_zwykle = 'Grzejniki';
+        $kategoria_lazienkowe = 'Grzejniki łazienkowe';
+        foreach ($_POST['LabelHeatRoom'] as $index => $value) {
+            if ($value < 9) { //jeśli nie wybrał łazienki
+                $dobor_grzejnika = product_data_from_db_by_power($db, $min_moc_grzewcza, $kategoria_zwykle);
+            }
+        }
+    }
+
+    $smarty->assign("dobor_zrodla_ciepla", array());
     $smarty->display('modules/EcmB2BProducts/tpls/Calculator_result_heat.tpl');
 }
 
@@ -121,9 +139,19 @@ function display_calc_results_heat($smarty, $produkty, $db) {
 //    return $a;
 //}
 
-function product_data_from_db_by_efficiency($db, $efficiency_need) { //
+function product_data_from_db_by_efficiency($db, $efficiency_need) {
     $efficiency_need_max = $efficiency_need + 500;
-    $result = $db->query("select id,name,efficiency from ecmproducts where efficiency between $efficiency_need and $efficiency_need_max and product_category_name='Centrala' order by efficiency desc");
+    $result = $db->query("select id,name from ecmproducts where efficiency between $efficiency_need and $efficiency_need_max and product_category_name='Centrala' order by efficiency desc");
+    while (($row = $db->fetchByAssoc($result)) != null) {
+        $n['id'] = $row['id'];
+        $n['name'] = $row['name'];
+    }
+    return $n;
+}
+
+function product_data_from_db_by_power($db, $power_need, $cat_name) {
+    $power_need_max = $power_need + 1000;
+    $result = $db->query("select id,name from ecmproducts where efficiency between $power_need and $power_need_max and product_category_name = '$cat_name' order by efficiency desc");
     while (($row = $db->fetchByAssoc($result)) != null) {
         $n['id'] = $row['id'];
         $n['name'] = $row['name'];
