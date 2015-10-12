@@ -14,10 +14,16 @@ function doCalcGrzej() { //liczenie kalkulatora grzewczego
         $('#calcWynikKubSumGrz').html(total_volume_all);
         $('#calcWynikKubSumGrze').val(total_volume_all);
     });
+    
+    var total_area_all = 0;
+    $('.calcDaneGrz .calcWynikPow').each(function () {
+        total_area_all = parseInt($(this).html()) + total_area_all;
+        $('#calcWynikPowSumGrze').val(total_area_all);
+    });
 
     var rooms_number = $('.calcDaneGrz').length - 1;
     $('#calcWynikIlSumGrz').html(rooms_number);
-    
+
     $('.calcDaneGrz').each(function (index) {
         $("input[name='calcWynikKub']", this).attr('value', $('.calcWynikKub').html());
         $("input[name='calcWynikKub']", this).attr('name', 'calcWynikKub' + "[" + index + "]");
@@ -134,7 +140,7 @@ function rowCount() { //liczba porządkowa oraz id name
         $('.calcDaneGrz').each(function (index) { //dla grzewczego
             $('.calcLp', this).html(index + '.');
             $('.calcTdH select', this).attr('name', 'LabelHeatRoom' + "[" + index + "]");
-            
+
             var kubatura_kom = parseInt($('.calcWynikKub', this).html()); //kubatura z poszczególnych pomieszczeń
             $("[name^='calcWynikKub']", this).attr('name', 'calcWynikKub' + "[" + index + "]");
             $("[name^='calcWynikKub[']", this).attr('value', kubatura_kom);
@@ -158,4 +164,8 @@ $('table#calcGrzej').click(rowCount);
 
 if ($('.calcPr').length) { //wywala przyciski przełączania kalkulatora jeśli widoczny jest wynik
     $('.calcSwitchBt').hide();
+
+    $('tr > td.calcTd.calcPrNum:first-child').each(function (index) { //dodaje liczbę porządkową do wyników
+        $('.calcLp', this).html(index + 1 + '.');
+    });
 }

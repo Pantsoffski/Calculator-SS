@@ -110,22 +110,26 @@ function display_calc_results_heat($smarty, $produkty, $db) {
     $min_moc_grzewcza = $kubatura * $wsp_izolacji;
     $min_moc_grzewcza_kw = $min_moc_grzewcza / 1000; //w kW
     $suma_cena = 0;
-    
-    if($_POST['LabelTypZrCiep'] == 1){ //jeśli wybrał pompę ciepła solanka/woda
-        $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Pompa ciepła");
+
+    if ($_POST['LabelTypZrCiep'] == 1) { //jeśli wybrał pompę ciepła solanka/woda
+        $dobor_zrodla_ciepla = product_data_from_db_by_power_and_name($db, $min_moc_grzewcza_kw, "Pompa ciepła", "%222-G%");
+        if ($dobor_zrodla_ciepla == null) {
+            $min_moc_grzewcza_kw = 10;
+            $dobor_zrodla_ciepla = product_data_from_db_by_power_and_name($db, $min_moc_grzewcza_kw, "Pompa ciepła", "%222-G%");
+        }
         $produkty->retrieve($dobor_zrodla_ciepla['id']);
         $dobor_zrodla_ciepla['efficiency'] = $produkty->efficiency;
         $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
         $dobor_zrodla_ciepla['cena'] = $cena['cena'];
         $suma_cena += $cena['cenao'];
-        
+
         $podgrzewacz['id'] = '38bbcdc0-eed6-5de4-ce89-5615074a9ff4';
         $produkty->retrieve($podgrzewacz['id']);
         $podgrzewacz['name'] = $produkty->name;
         $cena = product_price_from_db($db, $podgrzewacz['id']);
         $podgrzewacz['cena'] = $cena['cena'];
         $suma_cena += $cena['cenao'];
-        
+
         $wymiennik_pionowy_ilosc = ceil(($dobor_zrodla_ciepla['efficiency'] * 1000 * 0.9) / 40);
         $wymiennik_pionowy['id'] = 'db90a5b9-7e2d-048b-3a10-5615077f15se';
         $produkty->retrieve($wymiennik_pionowy['id']);
@@ -134,34 +138,99 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         $suma_cena += $cena['cenao'] * $wymiennik_pionowy_ilosc;
         $wymiennik_pionowy['cena'] = $cena['cenao'] * $wymiennik_pionowy_ilosc;
         $wymiennik_pionowy['cena'] = number_format($wymiennik_pionowy['cena'], 2, ',', ' ');
-        
+
         $smarty->assign("wymiennik_pionowy", array($wymiennik_pionowy['id'], $wymiennik_pionowy['name'], $wymiennik_pionowy['cena'], $wymiennik_pionowy_ilosc));
         $smarty->assign("podgrzewacz", array($podgrzewacz['id'], $podgrzewacz['name'], $podgrzewacz['cena']));
     }
-    if($_POST['LabelTypZrCiep'] == 2){ //jeśli wybrał pompę ciepła powietrze/woda
-        $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Pompa ciepła");
-        
+    if ($_POST['LabelTypZrCiep'] == 2) { //jeśli wybrał pompę ciepła powietrze/woda
+        $dobor_zrodla_ciepla = product_data_from_db_by_power_and_name($db, $min_moc_grzewcza_kw, "Pompa ciepła", "%222-S%");
+        if ($dobor_zrodla_ciepla == null) {
+            $min_moc_grzewcza_kw = 9;
+            $dobor_zrodla_ciepla = product_data_from_db_by_power_and_name($db, $min_moc_grzewcza_kw, "Pompa ciepła", "%222-S%");
+        }
+        $produkty->retrieve($dobor_zrodla_ciepla['id']);
+        $dobor_zrodla_ciepla['efficiency'] = $produkty->efficiency;
+        $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
+        $dobor_zrodla_ciepla['cena'] = $cena['cena'];
+        $suma_cena += $cena['cenao'];
+
         $podgrzewacz['id'] = '38bbcdc0-eed6-5de4-ce89-5615074a9ff4';
         $produkty->retrieve($podgrzewacz['id']);
         $podgrzewacz['name'] = $produkty->name;
         $cena = product_price_from_db($db, $podgrzewacz['id']);
         $podgrzewacz['cena'] = $cena['cena'];
+        $suma_cena += $cena['cenao'];
         $smarty->assign("podgrzewacz", array($podgrzewacz['id'], $podgrzewacz['name'], $podgrzewacz['cena']));
     }
-    if($_POST['LabelTypZrCiep'] == 3){ //jeśli wybrał kocioł gazowy
+    if ($_POST['LabelTypZrCiep'] == 3) { //jeśli wybrał kocioł gazowy
         $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Kocioł gazowy");
+        if ($dobor_zrodla_ciepla == null) {
+            $min_moc_grzewcza_kw = 35;
+            $dobor_zrodla_ciepla = product_data_from_db_by_power_and_name($db, $min_moc_grzewcza_kw, "Pompa ciepła", "%222-S%");
+        }
+        $produkty->retrieve($dobor_zrodla_ciepla['id']);
+        $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
+        $dobor_zrodla_ciepla['cena'] = $cena['cena'];
+        $suma_cena += $cena['cenao'];
     }
-    if($_POST['LabelTypZrCiep'] == 4){ //jeśli wybrał kocioł olejowy
+    if ($_POST['LabelTypZrCiep'] == 4) { //jeśli wybrał kocioł olejowy
         $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Kocioł olejowy");
+        if ($dobor_zrodla_ciepla == null) {
+            $min_moc_grzewcza_kw = 63;
+            $dobor_zrodla_ciepla = product_data_from_db_by_power_and_name($db, $min_moc_grzewcza_kw, "Pompa ciepła", "%222-S%");
+        }
+        $produkty->retrieve($dobor_zrodla_ciepla['id']);
+        $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
+        $dobor_zrodla_ciepla['cena'] = $cena['cena'];
+        $suma_cena += $cena['cenao'];
     }
-    
+
     if ($_POST['LabelTypInstal'] == 2) { //jeśli wybrano ogrzewanie grzejnikowe
         $kategoria_zwykle = 'Grzejniki';
         $kategoria_lazienkowe = 'Grzejniki łazienkowe';
+        $ilosc_grzejnikow_zw = 0;
+        $ilosc_grzejnikow_laz = 0;
+
         foreach ($_POST['LabelHeatRoom'] as $index => $value) {
+            $potrzebna_moc = $_POST['calcWynikKub'][$index] * $wsp_izolacji;
             if ($value < 9) { //jeśli nie wybrał łazienki
-                $dobor_grzejnika = product_data_from_db_by_power($db, $min_moc_grzewcza, $kategoria_zwykle);
+                if ($potrzebna_moc < 2631) {
+                    $dobor_grzejnika_zw = product_data_from_db_by_power($db, $potrzebna_moc, $kategoria_zwykle);
+                } else {
+                    $dobor_grzejnika_zw = product_data_from_db_by_power($db, 2631, $kategoria_zwykle);
+                    $ilosc_grzejnikow_zw++;
+                }
+                $cena = product_price_from_db($db, $dobor_grzejnika_zw['id']);
+                $dobor_grzejnika_zw['cena'] = $cena['cena'];
+                $suma_cena += $cena['cenao'];
+                $ilosc_grzejnikow_zw++;
+            } elseif ($value == 9) { //jeśli wybrał łazienkę
+                if ($potrzebna_moc < 359) {
+                    $dobor_grzejnika_laz = product_data_from_db_by_power($db, $potrzebna_moc, $kategoria_lazienkowe);
+                } else {
+                    $dobor_grzejnika_laz = product_data_from_db_by_power($db, 359, $kategoria_lazienkowe);
+                    $ilosc_grzejnikow_laz++;
+                }
+                $cena = product_price_from_db($db, $dobor_grzejnika_laz['id']);
+                $dobor_grzejnika_laz['cena'] = $cena['cena'];
+                $suma_cena += $cena['cenao'];
+                $ilosc_grzejnikow_laz++;
             }
+        }
+        if ($ilosc_grzejnikow_zw != 0) {
+            $smarty->assign("grzejniki_zwykle", array($dobor_grzejnika_zw['id'], $dobor_grzejnika_zw['name'], $dobor_grzejnika_zw['cena'], $ilosc_grzejnikow_zw));
+        }
+        if ($ilosc_grzejnikow_laz != 0) {
+            $smarty->assign("grzejniki_lazienkowe", array($dobor_grzejnika_laz['id'], $dobor_grzejnika_laz['name'], $dobor_grzejnika_laz['cena'], $ilosc_grzejnikow_laz));
+        }
+    }
+
+    if ($_POST['LabelTypInstal'] == 3) { //jeśli wybrano ogrzewanie podłogowe
+        $pow_calkowita = $_POST['calcWynikPowSumGrze'];
+        $ilosc_rury = $pow_calkowita * 10;
+        $ilość_obiegow = 1;
+        if($ilosc_rury % 10 == 0){
+            echo $ilosc_rury;
         }
     }
 
@@ -188,6 +257,16 @@ function product_data_from_db_by_efficiency($db, $efficiency_need) {
 function product_data_from_db_by_power($db, $power_need, $cat_name) {
     $power_need_max = $power_need + 1000;
     $result = $db->query("select id,name from ecmproducts where efficiency between $power_need and $power_need_max and product_category_name = '$cat_name' order by efficiency desc");
+    while (($row = $db->fetchByAssoc($result)) != null) {
+        $n['id'] = $row['id'];
+        $n['name'] = $row['name'];
+    }
+    return $n;
+}
+
+function product_data_from_db_by_power_and_name($db, $power_need, $cat_name, $name_like) {
+    $power_need_max = $power_need + 1000;
+    $result = $db->query("select id,name from ecmproducts where efficiency between $power_need and $power_need_max and product_category_name = '$cat_name' and name like '$name_like' order by efficiency desc");
     while (($row = $db->fetchByAssoc($result)) != null) {
         $n['id'] = $row['id'];
         $n['name'] = $row['name'];

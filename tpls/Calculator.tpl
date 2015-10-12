@@ -14,6 +14,7 @@
     <input id="form_check" name="form_check" type="hidden"/>
     <input id="calcWynikKubSumWent" name="calcWynikKubSumWent" type="hidden"/>
     <input id="calcWynikKubSumGrze" name="calcWynikKubSumGrze" type="hidden"/>
+    <input id="calcWynikPowSumGrze" name="calcWynikPowSumGrze" type="hidden"/>
 
     <table border="2" cellspacing="0" cellpadding="0" class="calcTable" id="calcGrzej" align="center">
         <tr>

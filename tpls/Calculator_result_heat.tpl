@@ -14,7 +14,7 @@
     </tr>
     <tr>
         <td class="calcTd calcPrNum">
-            <span>1.</span>
+            <div class="calcLp"></div>
         </td>
         <td class="calcTd calcPr">
             <span>{$dobor_zrodla_ciepla[1]}</span>
@@ -29,7 +29,7 @@
     {if isset($wymiennik_pionowy)}
     <tr>
         <td class="calcTd calcPrNum">
-            <span>2.</span>
+            <div class="calcLp"></div>
         </td>
         <td class="calcTd calcPr">
             <span>{$wymiennik_pionowy[1]}</span>
@@ -45,7 +45,7 @@
     {if isset($podgrzewacz)}
     <tr>
         <td class="calcTd calcPrNum">
-            <span>3.</span>
+            <div class="calcLp"></div>
         </td>
         <td class="calcTd calcPr">
             <span>{$podgrzewacz[1]}</span>
@@ -55,6 +55,38 @@
         </td>
         <td class="calcTd calcPrCen">
             <span>{$podgrzewacz[2]}</span>
+        </td>
+    </tr>
+    {/if}
+    {if isset($grzejniki_zwykle)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$grzejniki_zwykle[1]}</span>
+        </td>
+        <td class="calcTd calcPrNum">
+            <span>{$grzejniki_zwykle[3]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$grzejniki_zwykle[2]}</span>
+        </td>
+    </tr>
+    {/if}
+    {if isset($grzejniki_lazienkowe)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$grzejniki_lazienkowe[1]}</span>
+        </td>
+        <td class="calcTd calcPrNum">
+            <span>{$grzejniki_lazienkowe[3]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$grzejniki_lazienkowe[2]}</span>
         </td>
     </tr>
     {/if}
@@ -68,7 +100,7 @@
     </tr>
     <tr>
         <td colspan="4" align="center">
-            <input    
+            <input
                 style=     "float: left"
                 class=     "calcBt"
                 title=     "{$MOD.LBL_CALCULATOR_BUTTON_BACK}"
