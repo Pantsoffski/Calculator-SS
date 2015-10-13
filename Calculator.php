@@ -228,22 +228,43 @@ function display_calc_results_heat($smarty, $produkty, $db) {
     if ($_POST['LabelTypInstal'] == 3) { //jeśli wybrano ogrzewanie podłogowe
         $pow_calkowita = $_POST['calcWynikPowSumGrze'];
         $ilosc_rury = $pow_calkowita * 10;
-        $ilość_obiegow = ceil($pow_calkowita / 10);
-        $ilość_złączek = $ilość_obiegow * 2;
-        $ilość_spinek = $ilosc_rury * 5;
+        $ilosc_obiegow = ceil($pow_calkowita / 10);
+        $ilosc_zlaczek = $ilosc_obiegow * 2;
+        $ilosc_spinek = $ilosc_rury * 5;
         
-        if($ilość_obiegow == 2){ //definiowanie wielkości rozdzielaczy obwodów grzejnych
-            $wielkosc_rozdzielaczy = 'id 2';
-        }elseif($ilość_obiegow >= 4){
-            $wielkosc_rozdzielaczy = 'id 4';
-        }elseif($ilość_obiegow >= 6){
-            $wielkosc_rozdzielaczy = 'id 6';
-        }elseif($ilość_obiegow >= 8){
-            $wielkosc_rozdzielaczy = 'id 8';
-        }elseif($ilość_obiegow >= 10){
-            $wielkosc_rozdzielaczy = 'id 10';
+        if($ilosc_obiegow == 2){ //definiowanie wielkości rozdzielaczy obwodów grzejnych
+            $wielkosc_rozdzielaczy = '4956949b-7e75-a4a3-aa3b-5615079a6dc6';
+            $wielkosc_szafki = '67df9ef6-d408-6813-b1e8-5615073fa32d';
+        }elseif($ilosc_obiegow == 3){
+            $wielkosc_rozdzielaczy = '4c21f5a7-dc88-f7e7-ebd2-561507823c4c';
+            $wielkosc_szafki = '67df9ef6-d408-6813-b1e8-5615073fa32d';
+        }elseif($ilosc_obiegow == 4){
+            $wielkosc_rozdzielaczy = '4eda2cc8-2c71-6b7f-c247-561507050f95';
+            $wielkosc_szafki = '67df9ef6-d408-6813-b1e8-5615073fa32d';
+        }elseif($ilosc_obiegow == 5){
+            $wielkosc_rozdzielaczy = '51a5f898-5016-8aef-81b9-561507d9b8f1';
+            $wielkosc_szafki = '6aa36386-3cf2-5362-6f4f-5615074a4280';
+        }elseif($ilosc_obiegow == 6){
+            $wielkosc_rozdzielaczy = '5471d357-a088-3788-bfeb-561507f58be6';
+            $wielkosc_szafki = '6aa36386-3cf2-5362-6f4f-5615074a4280';
+        }elseif($ilosc_obiegow == 7){
+            $wielkosc_rozdzielaczy = '573fc45a-ba45-f4e5-e3c7-5615079152b8';
+            $wielkosc_szafki = '6d651bca-be19-151f-1d74-561507ca8d65';
+        }elseif($ilosc_obiegow == 8){
+            $wielkosc_rozdzielaczy = '5a11a2ea-033a-6e3d-5abf-56150726d4e4';
+            $wielkosc_szafki = '6d651bca-be19-151f-1d74-561507ca8d65';
+        }elseif($ilosc_obiegow == 9){
+            $wielkosc_rozdzielaczy = '5cdcd104-b186-6fe6-715b-561507765b55';
+            $wielkosc_szafki = '7028979f-c304-d19c-131f-56150749cb89';
+        }elseif($ilosc_obiegow == 10){
+            $wielkosc_rozdzielaczy = '5fa1de14-2952-1a61-f36f-561507454418';
+            $wielkosc_szafki = '7028979f-c304-d19c-131f-56150749cb89';
+        }elseif($ilosc_obiegow == 11){
+            $wielkosc_rozdzielaczy = '62623f67-8c1a-8d16-f3ce-561507b11285';
+            $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d';
         }else{
-            $wielkosc_rozdzielaczy = 'id 12';
+            $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
+            $wielkosc_szafki = '75a95617-6a06-0c7b-478c-561507e905c9';
         }
         $produkty->retrieve($wielkosc_rozdzielaczy); //rozdzielacz
         $rozdzielacz['name'] = $produkty->name;
@@ -252,23 +273,38 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         $suma_cena += $cena['cenao'];
         $smarty->assign("rozdzielacz", array($wielkosc_rozdzielaczy, $rozdzielacz['name'], $rozdzielacz['cena']));
         
-        $produkty->retrieve('idrury'); //rura
+        $produkty->retrieve($wielkosc_szafki); //szafka
+        $szafka['name'] = $produkty->name;
+        $cena = product_price_from_db($db, $wielkosc_szafki);
+        $szafka['cena'] = $cena['cena'];
+        $suma_cena += $cena['cenao'];
+        $smarty->assign("szafka", array($wielkosc_szafki, $szafka['name'], $szafka['cena']));
+        
+        $produkty->retrieve('43d195b3-108c-fd26-2b6f-561507d7f2f1'); //złączka
+        $zlaczka['name'] = $produkty->name;
+        $cena = product_price_from_db($db, '43d195b3-108c-fd26-2b6f-561507d7f2f1');
+        $zlaczka['cena'] = $cena['cenao'] * $ilosc_zlaczek;
+        $suma_cena += $zlaczka['cena'];
+        $zlaczka['cena'] = number_format($zlaczka['cena'], 2, ',', ' ');
+        $smarty->assign("zlaczka", array('43d195b3-108c-fd26-2b6f-561507d7f2f1', $zlaczka['name'], $zlaczka['cena'], $ilosc_zlaczek));
+        
+        $produkty->retrieve('3e3b3d31-7bc1-bc10-1cda-561507668b61'); //rura
         $rura['name'] = $produkty->name;
-        $cena = product_price_from_db($db, 'idrury');
+        $cena = product_price_from_db($db, '3e3b3d31-7bc1-bc10-1cda-561507668b61');
         $paczki_rury = ceil($ilosc_rury / 200);
         $rura['cena'] = $cena['cenao'] * $paczki_rury;
         $suma_cena += $rura['cena'];
         $rura['cena'] = number_format($rura['cena'], 2, ',', ' ');
-        $smarty->assign("rura", array('idrury', $rura['name'], $rura['cena'], $paczki_rury));
+        $smarty->assign("rura", array('3e3b3d31-7bc1-bc10-1cda-561507668b61', $rura['name'], $rura['cena'], $paczki_rury));
         
-        $produkty->retrieve('idspinek'); //spinki
+        $produkty->retrieve('4692dd4a-282f-a00c-3ce0-561507b84835'); //spinki
         $spinka['name'] = $produkty->name;
-        $cena = product_price_from_db($db, 'idspinek');
-        $paczki_spinki = ceil($ilość_spinek / 600);
+        $cena = product_price_from_db($db, '4692dd4a-282f-a00c-3ce0-561507b84835');
+        $paczki_spinki = ceil($ilosc_spinek / 600);
         $spinka['cena'] = $cena['cenao'] * $paczki_spinki;
         $suma_cena += $spinka['cena'];
         $spinka['cena'] = number_format($spinka['cena'], 2, ',', ' ');
-        $smarty->assign("spinka", array('idspinek', $spinka['name'], $spinka['cena'], $paczki_spinki));
+        $smarty->assign("spinka", array('4692dd4a-282f-a00c-3ce0-561507b84835', $spinka['name'], $spinka['cena'], $paczki_spinki));
     }
 
     $suma_cena = number_format($suma_cena, 2, ',', ' ');

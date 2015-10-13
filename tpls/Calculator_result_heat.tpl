@@ -122,6 +122,38 @@
         </td>
     </tr>
     {/if}
+    {if isset($szafka)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$szafka[1]}</span>
+        </td>
+        <td class="calcTd calcPrNum">
+            <span>1</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$szafka[2]}</span>
+        </td>
+    </tr>
+    {/if}
+    {if isset($zlaczka)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$zlaczka[1]}</span>
+        </td>
+        <td class="calcTd calcPrNum">
+            <span>{$zlaczka[3]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$zlaczka[2]}</span>
+        </td>
+    </tr>
+    {/if}
     {if isset($spinka)}
     <tr>
         <td class="calcTd calcPrNum">
