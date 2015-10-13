@@ -370,10 +370,11 @@ function addToCard($id) { //dodawanie do koszyka
     $db = $GLOBALS['db'];
     $p = new EcmProduct();
     $array = explode(',', $id);
+//    $array2 = explode(',', $quantity);
     $c = 0;
     $ac = new Account();
     $ac->retrieve($current_user->b2b_parent_id);
-    foreach ($array as $v) {
+    foreach ($array as $index => $v) {
         $p->retrieve($v);
         if ($v == '')
             continue;
@@ -397,7 +398,7 @@ function addToCard($id) { //dodawanie do koszyka
             "unit_id" => $p->unit_id,
             "unit_name" => $app_list_strings['ecmproducts_unit_dom'][$p->unit_id],
             "product_code" => $p->code,
-            "quantity" => 1,
+            "quantity" => $array2[$index],
             "price_start" => $price_start,
             "id" => $p->id,
             "position" => $c,

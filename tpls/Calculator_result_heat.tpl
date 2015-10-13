@@ -190,13 +190,16 @@
                         return true;"
                 value=     "{$MOD.LBL_CALCULATOR_BUTTON_BACK}"
                 >
-            <input     
+            <input
                 class=     "calcBt"
                 title=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
                 type=      "button"
                 name=      "button"
-                onclick=   "addProductToCard('{$dobor_zrodla_ciepla[0]}');
-                        location.href = 'index.php?module=EcmB2BProducts&action=ShoppingCard';"
+                onclick=   "
+                        var x = ['2','3'];
+                        addProductToCard(x);
+                        location.href = 'index.php?module=EcmB2BProducts&action=ShoppingCard';
+                           "
                 value=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
                 >
         </td>
