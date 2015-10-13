@@ -130,7 +130,7 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         $podgrzewacz['cena'] = $cena['cena'];
         $suma_cena += $cena['cenao'];
 
-        $wymiennik_pionowy_ilosc = ceil(($dobor_zrodla_ciepla['efficiency'] * 1000 * 0.9) / 40);
+        $wymiennik_pionowy_ilosc = ceil(($dobor_zrodla_ciepla['efficiency'] * 1000 * 0.9) / 40); //zaokrąglanie w górę
         $wymiennik_pionowy['id'] = 'db90a5b9-7e2d-048b-3a10-5615077f15se';
         $produkty->retrieve($wymiennik_pionowy['id']);
         $wymiennik_pionowy['name'] = $produkty->name;
@@ -228,10 +228,47 @@ function display_calc_results_heat($smarty, $produkty, $db) {
     if ($_POST['LabelTypInstal'] == 3) { //jeśli wybrano ogrzewanie podłogowe
         $pow_calkowita = $_POST['calcWynikPowSumGrze'];
         $ilosc_rury = $pow_calkowita * 10;
-        $ilość_obiegow = 1;
-        if($ilosc_rury % 10 == 0){
-            echo $ilosc_rury;
+        $ilość_obiegow = ceil($pow_calkowita / 10);
+        $ilość_złączek = $ilość_obiegow * 2;
+        $ilość_spinek = $ilosc_rury * 5;
+        
+        if($ilość_obiegow == 2){ //definiowanie wielkości rozdzielaczy obwodów grzejnych
+            $wielkosc_rozdzielaczy = 'id 2';
+        }elseif($ilość_obiegow >= 4){
+            $wielkosc_rozdzielaczy = 'id 4';
+        }elseif($ilość_obiegow >= 6){
+            $wielkosc_rozdzielaczy = 'id 6';
+        }elseif($ilość_obiegow >= 8){
+            $wielkosc_rozdzielaczy = 'id 8';
+        }elseif($ilość_obiegow >= 10){
+            $wielkosc_rozdzielaczy = 'id 10';
+        }else{
+            $wielkosc_rozdzielaczy = 'id 12';
         }
+        $produkty->retrieve($wielkosc_rozdzielaczy); //rozdzielacz
+        $rozdzielacz['name'] = $produkty->name;
+        $cena = product_price_from_db($db, $wielkosc_rozdzielaczy);
+        $rozdzielacz['cena'] = $cena['cena'];
+        $suma_cena += $cena['cenao'];
+        $smarty->assign("rozdzielacz", array($wielkosc_rozdzielaczy, $rozdzielacz['name'], $rozdzielacz['cena']));
+        
+        $produkty->retrieve('idrury'); //rura
+        $rura['name'] = $produkty->name;
+        $cena = product_price_from_db($db, 'idrury');
+        $paczki_rury = ceil($ilosc_rury / 200);
+        $rura['cena'] = $cena['cenao'] * $paczki_rury;
+        $suma_cena += $rura['cena'];
+        $rura['cena'] = number_format($rura['cena'], 2, ',', ' ');
+        $smarty->assign("rura", array('idrury', $rura['name'], $rura['cena'], $paczki_rury));
+        
+        $produkty->retrieve('idspinek'); //spinki
+        $spinka['name'] = $produkty->name;
+        $cena = product_price_from_db($db, 'idspinek');
+        $paczki_spinki = ceil($ilość_spinek / 600);
+        $spinka['cena'] = $cena['cenao'] * $paczki_spinki;
+        $suma_cena += $spinka['cena'];
+        $spinka['cena'] = number_format($spinka['cena'], 2, ',', ' ');
+        $smarty->assign("spinka", array('idspinek', $spinka['name'], $spinka['cena'], $paczki_spinki));
     }
 
     $suma_cena = number_format($suma_cena, 2, ',', ' ');

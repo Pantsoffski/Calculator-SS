@@ -90,6 +90,54 @@
         </td>
     </tr>
     {/if}
+    {if isset($rozdzielacz)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$rozdzielacz[1]}</span>
+        </td>
+        <td class="calcTd calcPrNum">
+            <span>1</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$rozdzielacz[2]}</span>
+        </td>
+    </tr>
+    {/if}
+    {if isset($rura)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$rura[1]}</span>
+        </td>
+        <td class="calcTd calcPrNum">
+            <span>{$rura[3]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$rura[2]}</span>
+        </td>
+    </tr>
+    {/if}
+    {if isset($spinka)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$spinka[1]}</span>
+        </td>
+        <td class="calcTd calcPrNum">
+            <span>{$spinka[3]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$spinka[2]}</span>
+        </td>
+    </tr>
+    {/if}
     <tr>
         <td></td>
         <td></td>
