@@ -1,6 +1,5 @@
 <link href="modules/EcmB2BProducts/css/calculator.css" rel="stylesheet" type="text/css"/>
 <script src="modules/EcmB2BProducts/javascript/jquery-1.11.0.min.js"></script>
-<script src="modules/EcmB2BProducts/javascript/card.js"></script>
 
 <table border="2" cellspacing="0" cellpadding="0" class="calcTable" align="center">
     <tr>
@@ -110,7 +109,11 @@
                 title=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
                 type=      "button"
                 name=      "button"
-                onclick=   "addProductToCard('{$dobor_centrali[0]},{$dobor_centrali[4]}{if isset($amenostat_naw)},{$amenostat_naw[3]}{/if}{if isset($amenostat_wyw)},{$amenostat_wyw[3]}{/if}');
+                onclick=   "
+                        id = '2,3';
+                        quantity = '4,4';
+                        addProductToCard(id,quantity);
+                        addProductToCard('{$dobor_centrali[0]},{$dobor_centrali[4]}{if isset($amenostat_naw)},{$amenostat_naw[3]}{/if}{if isset($amenostat_wyw)},{$amenostat_wyw[3]}{/if}');
                         location.href = 'index.php?module=EcmB2BProducts&action=ShoppingCard';"
                 value=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
                 >

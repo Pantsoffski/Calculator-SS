@@ -362,7 +362,7 @@ switch ($_POST['job']) { //dodawanie do koszyka, switch w razie do rozubowy
         break;
 }
 
-function addToCard($id) { //dodawanie do koszyka
+function addToCard($id, $quantity) { //dodawanie do koszyka
     global $app_list_strings, $current_user;
 
     if (count($_SESSION['items']) == 0)
@@ -370,7 +370,7 @@ function addToCard($id) { //dodawanie do koszyka
     $db = $GLOBALS['db'];
     $p = new EcmProduct();
     $array = explode(',', $id);
-//    $array2 = explode(',', $quantity);
+    $array2 = explode(',', $quantity);
     $c = 0;
     $ac = new Account();
     $ac->retrieve($current_user->b2b_parent_id);

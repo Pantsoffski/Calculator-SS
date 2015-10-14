@@ -1,3 +1,5 @@
+var ajax_url = "index.php?module=EcmB2BProducts&action=javahelper&to_pdf=1";
+
 function doCalcGrzej() { //liczenie kalkulatora grzewczego
     $('.calcDaneGrz').each(function () {
         var total_area = $('.calcDl', this).val() * $('.calcSz', this).val();
@@ -14,7 +16,7 @@ function doCalcGrzej() { //liczenie kalkulatora grzewczego
         $('#calcWynikKubSumGrz').html(total_volume_all);
         $('#calcWynikKubSumGrze').val(total_volume_all);
     });
-    
+
     var total_area_all = 0;
     $('.calcDaneGrz .calcWynikPow').each(function () {
         total_area_all = parseInt($(this).html()) + total_area_all;
@@ -168,4 +170,31 @@ if ($('.calcPr').length) { //wywala przyciski przełączania kalkulatora jeśli 
     $('tr > td.calcTd.calcPrNum:first-child').each(function (index) { //dodaje liczbę porządkową do wyników
         $('.calcLp', this).html(index + 1 + '.');
     });
+}
+
+function addProductToCard(id, quantity) {
+
+    var params = {
+        job: 'addToCard',
+        id: id,
+        quantity: quantity,
+    };
+    $.ajax({
+        type: "POST",
+        url: ajax_url,
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data != '-1') {
+
+                $('#cardcount').text(data);
+                $("#selectCountTop").val('0');
+                $('.checkbox').each(function () {
+                    $(this).prop('checked', false);
+                });
+            }
+        },
+        data: params
+    });
+
 }
