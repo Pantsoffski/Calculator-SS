@@ -110,10 +110,9 @@
                 type=      "button"
                 name=      "button"
                 onclick=   "
-                        id = '2,3';
-                        quantity = '4,4';
+                        id = '{$dobor_centrali[0]}{if isset($amenostat_naw)},{$amenostat_naw[3]}{/if}{if isset($amenostat_wyw)},{$amenostat_wyw[3]}{/if},{$dobor_centrali[4]}';
+                        quantity = '1{if isset($amenostat_naw)},{$amenostat_naw[1]}{/if}{if isset($amenostat_wyw)},{$amenostat_wyw[1]}{/if},1';
                         addProductToCard(id,quantity);
-                        addProductToCard('{$dobor_centrali[0]},{$dobor_centrali[4]}{if isset($amenostat_naw)},{$amenostat_naw[3]}{/if}{if isset($amenostat_wyw)},{$amenostat_wyw[3]}{/if}');
                         location.href = 'index.php?module=EcmB2BProducts&action=ShoppingCard';"
                 value=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
                 >
