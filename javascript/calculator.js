@@ -175,7 +175,7 @@ if ($('.calcPr').length) { //wywala przyciski przełączania kalkulatora jeśli 
 function addProductToCard(id, quantity) {
 
     var params = {
-        job: 'addToCard',
+        job: 'addToCardCalc',
         id: id,
         quantity: quantity,
     };

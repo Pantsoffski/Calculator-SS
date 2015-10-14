@@ -196,9 +196,9 @@
                 name=      "button"
                 onclick=   "
                         id = '{$dobor_zrodla_ciepla[0]}{if isset($wymiennik_pionowy)},{$wymiennik_pionowy[0]}{/if}{if isset($podgrzewacz)},{$podgrzewacz[0]}{/if}{if isset($grzejniki_zwykle)},{$grzejniki_zwykle[0]}{/if}{if isset($grzejniki_lazienkowe)},{$grzejniki_lazienkowe[0]}{/if}{if isset($rozdzielacz)},{$rozdzielacz[0]}{/if}{if isset($rura)},{$rura[0]}{/if}{if isset($szafka)},{$szafka[0]}{/if}{if isset($zlaczka)},{$zlaczka[0]}{/if}{if isset($spinka)},{$spinka[0]}{/if}';
-                        quantity = '1{if isset($wymiennik_pionowy)},{$wymiennik_pionowy[3]}{/if}{if isset($podgrzewacz)},{$podgrzewacz[3]}{/if}{if isset($grzejniki_zwykle)},{$grzejniki_zwykle[3]}{/if}{if isset($grzejniki_lazienkowe)},{$grzejniki_lazienkowe[3]}{/if}{if isset($rozdzielacz)},{$rozdzielacz[3]}{/if}{if isset($rura)},{$rura[3]}{/if}{if isset($szafka)},{$szafka[3]}{/if}{if isset($zlaczka)},{$zlaczka[3]}{/if}{if isset($spinka)},{$spinka[3]}{/if}';
+                        quantity = '1{if isset($wymiennik_pionowy)},{$wymiennik_pionowy[3]}{/if}{if isset($podgrzewacz)},1{/if}{if isset($grzejniki_zwykle)},{$grzejniki_zwykle[3]}{/if}{if isset($grzejniki_lazienkowe)},{$grzejniki_lazienkowe[3]}{/if}{if isset($rozdzielacz)},{$rozdzielacz[3]}{/if}{if isset($rura)},{$rura[3]}{/if}{if isset($szafka)},{$szafka[3]}{/if}{if isset($zlaczka)},{$zlaczka[3]}{/if}{if isset($spinka)},{$spinka[3]}{/if}';
                         addProductToCard(id,quantity);
-                        location.href = 'index.php?module=EcmB2BProducts&action=ShoppingCard';
+                        {*location.href = 'index.php?module=EcmB2BProducts&action=ShoppingCard';*}
                            "
                 value=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
                 >
