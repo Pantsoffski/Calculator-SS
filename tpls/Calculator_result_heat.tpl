@@ -18,7 +18,7 @@
         <td class="calcTd calcPr">
             <span>{$dobor_zrodla_ciepla[1]}</span>
         </td>
-        <td class="calcTd calcPrNum">
+        <td class="calcTd calcPrCen">
             <span>1</span>
         </td>
         <td class="calcTd calcPrCen">
@@ -33,7 +33,7 @@
         <td class="calcTd calcPr">
             <span>{$wymiennik_pionowy[1]}</span>
         </td>
-        <td class="calcTd calcPrNum">
+        <td class="calcTd calcPrCen">
             <span>{$wymiennik_pionowy[3]}</span>
         </td>
         <td class="calcTd calcPrCen">
@@ -49,7 +49,7 @@
         <td class="calcTd calcPr">
             <span>{$podgrzewacz[1]}</span>
         </td>
-        <td class="calcTd calcPrNum">
+        <td class="calcTd calcPrCen">
             <span>1</span>
         </td>
         <td class="calcTd calcPrCen">
@@ -65,7 +65,7 @@
         <td class="calcTd calcPr">
             <span>{$grzejniki_zwykle[1]}</span>
         </td>
-        <td class="calcTd calcPrNum">
+        <td class="calcTd calcPrCen">
             <span>{$grzejniki_zwykle[3]}</span>
         </td>
         <td class="calcTd calcPrCen">
@@ -81,7 +81,7 @@
         <td class="calcTd calcPr">
             <span>{$grzejniki_lazienkowe[1]}</span>
         </td>
-        <td class="calcTd calcPrNum">
+        <td class="calcTd calcPrCen">
             <span>{$grzejniki_lazienkowe[3]}</span>
         </td>
         <td class="calcTd calcPrCen">
@@ -97,7 +97,7 @@
         <td class="calcTd calcPr">
             <span>{$rozdzielacz[1]}</span>
         </td>
-        <td class="calcTd calcPrNum">
+        <td class="calcTd calcPrCen">
             <span>1</span>
         </td>
         <td class="calcTd calcPrCen">
@@ -113,7 +113,7 @@
         <td class="calcTd calcPr">
             <span>{$rura[1]}</span>
         </td>
-        <td class="calcTd calcPrNum">
+        <td class="calcTd calcPrCen">
             <span>{$rura[3]}</span>
         </td>
         <td class="calcTd calcPrCen">
@@ -129,7 +129,7 @@
         <td class="calcTd calcPr">
             <span>{$szafka[1]}</span>
         </td>
-        <td class="calcTd calcPrNum">
+        <td class="calcTd calcPrCen">
             <span>1</span>
         </td>
         <td class="calcTd calcPrCen">
@@ -145,7 +145,7 @@
         <td class="calcTd calcPr">
             <span>{$zlaczka[1]}</span>
         </td>
-        <td class="calcTd calcPrNum">
+        <td class="calcTd calcPrCen">
             <span>{$zlaczka[3]}</span>
         </td>
         <td class="calcTd calcPrCen">
@@ -161,7 +161,7 @@
         <td class="calcTd calcPr">
             <span>{$spinka[1]}</span>
         </td>
-        <td class="calcTd calcPrNum">
+        <td class="calcTd calcPrCen">
             <span>{$spinka[3]}</span>
         </td>
         <td class="calcTd calcPrCen">
@@ -196,9 +196,9 @@
                 name=      "button"
                 onclick=   "
                         id = '{$dobor_zrodla_ciepla[0]}{if isset($wymiennik_pionowy)},{$wymiennik_pionowy[0]}{/if}{if isset($podgrzewacz)},{$podgrzewacz[0]}{/if}{if isset($grzejniki_zwykle)},{$grzejniki_zwykle[0]}{/if}{if isset($grzejniki_lazienkowe)},{$grzejniki_lazienkowe[0]}{/if}{if isset($rozdzielacz)},{$rozdzielacz[0]}{/if}{if isset($rura)},{$rura[0]}{/if}{if isset($szafka)},{$szafka[0]}{/if}{if isset($zlaczka)},{$zlaczka[0]}{/if}{if isset($spinka)},{$spinka[0]}{/if}';
-                        quantity = '1{if isset($wymiennik_pionowy)},{$wymiennik_pionowy[3]}{/if}{if isset($podgrzewacz)},1{/if}{if isset($grzejniki_zwykle)},{$grzejniki_zwykle[3]}{/if}{if isset($grzejniki_lazienkowe)},{$grzejniki_lazienkowe[3]}{/if}{if isset($rozdzielacz)},{$rozdzielacz[3]}{/if}{if isset($rura)},{$rura[3]}{/if}{if isset($szafka)},{$szafka[3]}{/if}{if isset($zlaczka)},{$zlaczka[3]}{/if}{if isset($spinka)},{$spinka[3]}{/if}';
+                        quantity = '1{if isset($wymiennik_pionowy)},{$wymiennik_pionowy[3]}{/if}{if isset($podgrzewacz)},1{/if}{if isset($grzejniki_zwykle)},{$grzejniki_zwykle[3]}{/if}{if isset($grzejniki_lazienkowe)},{$grzejniki_lazienkowe[3]}{/if}{if isset($rozdzielacz)},1{/if}{if isset($rura)},{$rura[3]}{/if}{if isset($szafka)},{$szafka[3]}{/if}{if isset($zlaczka)},{$zlaczka[3]}{/if}{if isset($spinka)},{$spinka[3]}{/if}';
                         addProductToCard(id,quantity);
-                        {*location.href = 'index.php?module=EcmB2BProducts&action=ShoppingCard';*}
+                        location.href = 'index.php?module=EcmB2BProducts&action=ShoppingCard';
                            "
                 value=     "{$MOD.LBL_CALCULATOR_BUTTON_ADD_TO_CART}"
                 >

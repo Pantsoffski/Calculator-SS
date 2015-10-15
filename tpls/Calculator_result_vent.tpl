@@ -18,7 +18,7 @@
         <td class="calcTd calcPr">
             <span>{$dobor_centrali[1]}</span>
         </td>
-        <td class="calcTd calcPrNum">
+        <td class="calcTd calcPrCen">
             <span>1</span>
         </td>
         <td class="calcTd calcPrCen">
@@ -33,7 +33,7 @@
             <td class="calcTd calcPr">
                 <span>{$amenostat_naw[0]}</span>
             </td>
-            <td class="calcTd calcPrNum">
+            <td class="calcTd calcPrCen">
                 <span>{$amenostat_naw[1]}</span>
             </td>
             <td class="calcTd calcPrCen">
@@ -55,7 +55,7 @@
             <td class="calcTd calcPr">
                 <span>{$amenostat_wyw[0]}</span>
             </td>
-            <td class="calcTd calcPrNum">
+            <td class="calcTd calcPrCen">
                 <span>{$amenostat_wyw[1]}</span>
             </td>
             <td class="calcTd calcPrCen">
@@ -76,7 +76,7 @@
         <td class="calcTd calcPr">
             <span>{$dobor_centrali[3]}</span>
         </td>
-        <td class="calcTd calcPrNum">
+        <td class="calcTd calcPrCen">
             <span>1</span>
         </td>
         <td class="calcTd calcPrCen">

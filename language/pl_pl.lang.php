@@ -468,12 +468,12 @@ $mod_strings = array(
     'LBL_GENERATE_EAN' => 'Wygeneruj',
     'LBL_BE_TO_BE' => 'B2B',
     'LBL_BE_TO_SEE' => 'B2C',
-//21.09.2015
+//pp 21.09.2015
     'LBL_CALCULATOR_GRZEW_TITLE' => 'Kalkulator grzewczy',
     'LBL_CALCULATOR_WENT_TITLE' => 'Kalkulator wentylacji',
     'LBL_CALCULATOR_PRODUCTS_LIST' => 'Lista niezbędnych produktów',
     'LBL_CALCULATOR_PRODUCT_NAME' => 'Nazwa produktu',
-    'LBL_CALCULATOR_PRODUCT_PRICE' => 'Cena [zł]',
+    'LBL_CALCULATOR_PRODUCT_PRICE' => 'Wartość [zł]',
     'LBL_CALCULATOR_INSULATE' => 'Stan izolacji budynku:',
     'LBL_CALCULATOR_VOLUME' => 'Objętość ogrzewanego pomieszczenia',
     'LBL_CALCULATOR_TYPE_HEAT' => 'Rodzaj instalacji grzewczej:',
@@ -495,5 +495,7 @@ $mod_strings = array(
     'LBL_CALCULATOR_ALL_ROOM_VOLUME_VENT' => 'Kubatura pomieszczeń wentylowanych:',
     'LBL_CALCULATOR_ALL_NUMBER_HEAT' => 'Ilość pomieszczeń ogrzewanych:',
     'LBL_CALCULATOR_ALL_NUMBER_VENT' => 'Ilość pomieszczeń wentylowanych:',
+//pp 15.10.2015
+    'LBL_QUANTITY' => 'Ilość:',
 );
 ?>
