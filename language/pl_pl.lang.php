@@ -277,7 +277,7 @@ $mod_strings = array(
     'NTC_REMOVE_ACCOUNT_CONFIRMATION' => 'Czy na pewno chcesz usunac ten produkt z firmy?',
     'ERR_DELETE_RECORD' => 'Podaj numer rekordu aby usunac produkt.',
 // FOR DEFAULT FIELDS
-    'LBL_NAME' => 'Nazwa:',
+    'LBL_NAME' => 'Nazwa',
     'LBL_SUBJECT' => 'Nazwa:',
     'LBL_CREATED_BY' => 'Utworzone przez:',
     'LBL_CREATED' => 'Utworzone przez:',
@@ -496,6 +496,7 @@ $mod_strings = array(
     'LBL_CALCULATOR_ALL_NUMBER_HEAT' => 'Ilość pomieszczeń ogrzewanych:',
     'LBL_CALCULATOR_ALL_NUMBER_VENT' => 'Ilość pomieszczeń wentylowanych:',
 //pp 15.10.2015
-    'LBL_QUANTITY' => 'Ilość:',
+    'LBL_QUANTITY' => 'Ilość',
+    'LBL_CALCULATOR_PRODUCT_PRICE2' => 'Cena [zł]',
 );
 ?>
