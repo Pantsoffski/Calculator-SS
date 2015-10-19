@@ -21,7 +21,10 @@ if (isset($_POST['LabelHeatRoom']) && $_POST['form_check'] == 1) { //wybór stro
 function display_calc_results_vent($smarty, $produkty, $db) {
     $kubatura = $_POST['calcWynikKubSumWent'];
     $min_wydajnosc_centr = $kubatura * 0.7;
-    $centrala_dobor = product_data_from_db_by_efficiency($db, $min_wydajnosc_centr); //pozyskiwanie danych wymaganej centrali
+//    $centrala_dobor = product_data_from_db_by_efficiency($db, $min_wydajnosc_centr); //pozyskiwanie danych wymaganej centrali
+    $data = new dataFromDB;
+    $centrala_dobor = $data->by_efficiency($db, $min_wydajnosc_centr);
+    var_dump($centrala_dobor);
     $cena = product_price_from_db($db, $centrala_dobor['id']); //cena centrali
     $cantrala_cena = $cena['cena'];
     $suma_cena = $cena['cenao'];
@@ -231,38 +234,38 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         $ilosc_obiegow = ceil($pow_calkowita / 10);
         $ilosc_zlaczek = $ilosc_obiegow * 2;
         $ilosc_spinek = $ilosc_rury * 5;
-        
-        if($ilosc_obiegow == 2){ //definiowanie wielkości rozdzielaczy obwodów grzejnych
+
+        if ($ilosc_obiegow == 2) { //definiowanie wielkości rozdzielaczy obwodów grzejnych
             $wielkosc_rozdzielaczy = '4956949b-7e75-a4a3-aa3b-5615079a6dc6';
             $wielkosc_szafki = '67df9ef6-d408-6813-b1e8-5615073fa32d';
-        }elseif($ilosc_obiegow == 3){
+        } elseif ($ilosc_obiegow == 3) {
             $wielkosc_rozdzielaczy = '4c21f5a7-dc88-f7e7-ebd2-561507823c4c';
             $wielkosc_szafki = '67df9ef6-d408-6813-b1e8-5615073fa32d';
-        }elseif($ilosc_obiegow == 4){
+        } elseif ($ilosc_obiegow == 4) {
             $wielkosc_rozdzielaczy = '4eda2cc8-2c71-6b7f-c247-561507050f95';
             $wielkosc_szafki = '67df9ef6-d408-6813-b1e8-5615073fa32d';
-        }elseif($ilosc_obiegow == 5){
+        } elseif ($ilosc_obiegow == 5) {
             $wielkosc_rozdzielaczy = '51a5f898-5016-8aef-81b9-561507d9b8f1';
             $wielkosc_szafki = '6aa36386-3cf2-5362-6f4f-5615074a4280';
-        }elseif($ilosc_obiegow == 6){
+        } elseif ($ilosc_obiegow == 6) {
             $wielkosc_rozdzielaczy = '5471d357-a088-3788-bfeb-561507f58be6';
             $wielkosc_szafki = '6aa36386-3cf2-5362-6f4f-5615074a4280';
-        }elseif($ilosc_obiegow == 7){
+        } elseif ($ilosc_obiegow == 7) {
             $wielkosc_rozdzielaczy = '573fc45a-ba45-f4e5-e3c7-5615079152b8';
             $wielkosc_szafki = '6d651bca-be19-151f-1d74-561507ca8d65';
-        }elseif($ilosc_obiegow == 8){
+        } elseif ($ilosc_obiegow == 8) {
             $wielkosc_rozdzielaczy = '5a11a2ea-033a-6e3d-5abf-56150726d4e4';
             $wielkosc_szafki = '6d651bca-be19-151f-1d74-561507ca8d65';
-        }elseif($ilosc_obiegow == 9){
+        } elseif ($ilosc_obiegow == 9) {
             $wielkosc_rozdzielaczy = '5cdcd104-b186-6fe6-715b-561507765b55';
             $wielkosc_szafki = '7028979f-c304-d19c-131f-56150749cb89';
-        }elseif($ilosc_obiegow == 10){
+        } elseif ($ilosc_obiegow == 10) {
             $wielkosc_rozdzielaczy = '5fa1de14-2952-1a61-f36f-561507454418';
             $wielkosc_szafki = '7028979f-c304-d19c-131f-56150749cb89';
-        }elseif($ilosc_obiegow == 11){
+        } elseif ($ilosc_obiegow == 11) {
             $wielkosc_rozdzielaczy = '62623f67-8c1a-8d16-f3ce-561507b11285';
             $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d';
-        }else{
+        } else {
             $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
             $wielkosc_szafki = '75a95617-6a06-0c7b-478c-561507e905c9';
         }
@@ -272,14 +275,14 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         $rozdzielacz['cena'] = $cena['cena'];
         $suma_cena += $cena['cenao'];
         $smarty->assign("rozdzielacz", array($wielkosc_rozdzielaczy, $rozdzielacz['name'], $rozdzielacz['cena']));
-        
+
         $produkty->retrieve($wielkosc_szafki); //szafka
         $szafka['name'] = $produkty->name;
         $cena = product_price_from_db($db, $wielkosc_szafki);
         $szafka['cena'] = $cena['cena'];
         $suma_cena += $cena['cenao'];
         $smarty->assign("szafka", array($wielkosc_szafki, $szafka['name'], $szafka['cena']));
-        
+
         $produkty->retrieve('43d195b3-108c-fd26-2b6f-561507d7f2f1'); //złączka
         $zlaczka['name'] = $produkty->name;
         $cena = product_price_from_db($db, '43d195b3-108c-fd26-2b6f-561507d7f2f1');
@@ -287,7 +290,7 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         $suma_cena += $zlaczka['cena'];
         $zlaczka['cena'] = number_format($zlaczka['cena'], 2, ',', ' ');
         $smarty->assign("zlaczka", array('43d195b3-108c-fd26-2b6f-561507d7f2f1', $zlaczka['name'], $zlaczka['cena'], $ilosc_zlaczek));
-        
+
         $produkty->retrieve('3e3b3d31-7bc1-bc10-1cda-561507668b61'); //rura
         $rura['name'] = $produkty->name;
         $cena = product_price_from_db($db, '3e3b3d31-7bc1-bc10-1cda-561507668b61');
@@ -296,7 +299,7 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         $suma_cena += $rura['cena'];
         $rura['cena'] = number_format($rura['cena'], 2, ',', ' ');
         $smarty->assign("rura", array('3e3b3d31-7bc1-bc10-1cda-561507668b61', $rura['name'], $rura['cena'], $paczki_rury));
-        
+
         $produkty->retrieve('4692dd4a-282f-a00c-3ce0-561507b84835'); //spinki
         $spinka['name'] = $produkty->name;
         $cena = product_price_from_db($db, '4692dd4a-282f-a00c-3ce0-561507b84835');
@@ -316,6 +319,44 @@ function display_calc_results_heat($smarty, $produkty, $db) {
 //    $a = filter_input(INPUT_POST, $input, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 //    return $a;
 //}
+
+class dataFromDB {
+
+    public $result;
+    public $cat_name;
+    public $need_value;
+
+    function by_efficiency($db, $efficiency_need) {
+        $this->need_value = $efficiency_need + 500;
+        $this->result = $db->query("select id,name from ecmproducts where efficiency between $efficiency_need and $this->need_value and product_category_name='Centrala' order by efficiency desc");
+        while (($row = $db->fetchByAssoc($this->result)) != null) {
+            $n['id'] = $row['id'];
+            $n['name'] = $row['name'];
+        }
+        return $n;
+    }
+    
+//    function by_power($db, $power_need, $cat_name) {
+//        $this->need_value = $power_need + 1000;
+//        $this->result = $db->query("select id,name from ecmproducts where efficiency between $power_need and $this->need_value and product_category_name = '$cat_name' order by efficiency desc");
+//        while (($row = $db->fetchByAssoc($this->result)) != null) {
+//            $n['id'] = $row['id'];
+//            $n['name'] = $row['name'];
+//        }
+//    return $n;
+//    }
+//    
+//    function product_data_from_db_by_power_and_name($db, $power_need, $cat_name, $name_like) {
+//        $this->need_value = $power_need + 1000;
+//        $this->result = $db->query("select id,name from ecmproducts where efficiency between $power_need and $this->need_value and product_category_name = '$cat_name' and name like '$name_like' order by efficiency desc");
+//        while (($row = $db->fetchByAssoc($this->result)) != null) {
+//            $n['id'] = $row['id'];
+//            $n['name'] = $row['name'];
+//        }
+//        return $n;
+//    }
+
+}
 
 function product_data_from_db_by_efficiency($db, $efficiency_need) {
     $efficiency_need_max = $efficiency_need + 500;
