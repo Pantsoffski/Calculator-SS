@@ -22,8 +22,6 @@ function display_calc_results_vent($smarty, $produkty, $db) {
     $kubatura = $_POST['calcWynikKubSumWent'];
     $min_wydajnosc_centr = $kubatura * 0.7;
     $centrala_dobor = product_data_from_db_by_efficiency($db, $min_wydajnosc_centr); //pozyskiwanie danych wymaganej centrali
-//    $data = new dataFromDB;
-//    $centrala_dobor = $data->by_efficiency($db, $min_wydajnosc_centr);
     $cena = product_price_from_db($db, $centrala_dobor['id']); //cena centrali
     $cantrala_cena = $cena['cena'];
     $suma_cena = $cena['cenao'];
