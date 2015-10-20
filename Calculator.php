@@ -21,10 +21,9 @@ if (isset($_POST['LabelHeatRoom']) && $_POST['form_check'] == 1) { //wybór stro
 function display_calc_results_vent($smarty, $produkty, $db) {
     $kubatura = $_POST['calcWynikKubSumWent'];
     $min_wydajnosc_centr = $kubatura * 0.7;
-//    $centrala_dobor = product_data_from_db_by_efficiency($db, $min_wydajnosc_centr); //pozyskiwanie danych wymaganej centrali
-    $data = new dataFromDB;
-    $centrala_dobor = $data->by_efficiency($db, $min_wydajnosc_centr);
-    var_dump($centrala_dobor);
+    $centrala_dobor = product_data_from_db_by_efficiency($db, $min_wydajnosc_centr); //pozyskiwanie danych wymaganej centrali
+//    $data = new dataFromDB;
+//    $centrala_dobor = $data->by_efficiency($db, $min_wydajnosc_centr);
     $cena = product_price_from_db($db, $centrala_dobor['id']); //cena centrali
     $cantrala_cena = $cena['cena'];
     $suma_cena = $cena['cenao'];
@@ -313,49 +312,6 @@ function display_calc_results_heat($smarty, $produkty, $db) {
     $suma_cena = number_format($suma_cena, 2, ',', ' ');
     $smarty->assign("dobor_zrodla_ciepla", array($dobor_zrodla_ciepla['id'], $dobor_zrodla_ciepla['name'], $dobor_zrodla_ciepla['cena'], $suma_cena));
     $smarty->display('modules/EcmB2BProducts/tpls/Calculator_result_heat.tpl');
-}
-
-//function sanitize_calc_input($input) {
-//    $a = filter_input(INPUT_POST, $input, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-//    return $a;
-//}
-
-class dataFromDB {
-
-    public $result;
-    public $cat_name;
-    public $need_value;
-
-    function by_efficiency($db, $efficiency_need) {
-        $this->need_value = $efficiency_need + 500;
-        $this->result = $db->query("select id,name from ecmproducts where efficiency between $efficiency_need and $this->need_value and product_category_name='Centrala' order by efficiency desc");
-        while (($row = $db->fetchByAssoc($this->result)) != null) {
-            $n['id'] = $row['id'];
-            $n['name'] = $row['name'];
-        }
-        return $n;
-    }
-    
-//    function by_power($db, $power_need, $cat_name) {
-//        $this->need_value = $power_need + 1000;
-//        $this->result = $db->query("select id,name from ecmproducts where efficiency between $power_need and $this->need_value and product_category_name = '$cat_name' order by efficiency desc");
-//        while (($row = $db->fetchByAssoc($this->result)) != null) {
-//            $n['id'] = $row['id'];
-//            $n['name'] = $row['name'];
-//        }
-//    return $n;
-//    }
-//    
-//    function product_data_from_db_by_power_and_name($db, $power_need, $cat_name, $name_like) {
-//        $this->need_value = $power_need + 1000;
-//        $this->result = $db->query("select id,name from ecmproducts where efficiency between $power_need and $this->need_value and product_category_name = '$cat_name' and name like '$name_like' order by efficiency desc");
-//        while (($row = $db->fetchByAssoc($this->result)) != null) {
-//            $n['id'] = $row['id'];
-//            $n['name'] = $row['name'];
-//        }
-//        return $n;
-//    }
-
 }
 
 function product_data_from_db_by_efficiency($db, $efficiency_need) {

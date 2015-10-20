@@ -10,7 +10,7 @@
     </tr>
 </table>
 
-<form name="ecmproductsCalculator" id="ecmproductsCalculator" method="POST" action="index.php?module=EcmB2BProducts&action=Calculator">
+<form name="ecmproductsCalculator" id="ecmproductsCalculator" method="POST" action="index.php?module=EcmB2BProducts&action=Calculator" target="_blank">
     <input id="form_check" name="form_check" type="hidden"/>
     <input id="calcWynikKubSumWent" name="calcWynikKubSumWent" type="hidden"/>
     <input id="calcWynikKubSumGrze" name="calcWynikKubSumGrze" type="hidden"/>

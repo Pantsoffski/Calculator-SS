@@ -185,8 +185,7 @@
                 title=     "{$MOD.LBL_CALCULATOR_BUTTON_BACK}"
                 type=      "button"
                 name=      "button"
-                onclick=   "history.go(-1);
-                        return true;"
+                onclick=   "window.close();"
                 value=     "{$MOD.LBL_CALCULATOR_BUTTON_BACK}"
                 >
             <input
