@@ -114,14 +114,30 @@ function display_calc_results_heat($smarty, $produkty, $db) {
     if ($_POST['LabelTypZrCiep'] == 1) { //jeśli wybrał pompę ciepła solanka/woda
         $dobor_zrodla_ciepla = product_data_from_db_by_power_and_name($db, $min_moc_grzewcza_kw, "Pompa ciepła", "%222-G%");
         if ($dobor_zrodla_ciepla == null) {
-            $min_moc_grzewcza_kw = 10;
-            $dobor_zrodla_ciepla = product_data_from_db_by_power_and_name($db, $min_moc_grzewcza_kw, "Pompa ciepła", "%222-G%");
+            $dobor_zrodla_ciepla['id'] = null;
+            $dobor_zrodla_ciepla['name'] = 'Brak w cenniku, pompa dobierana indywidualnie';
+            $dobor_zrodla_ciepla['cena'] = '0,00';
+
+            $wymiennik_pionowy['id'] = null;
+            $wymiennik_pionowy['name'] = 'Długość wymiennika pionowego dla pompy ciepła dobierana indywidualnie';
+            $wymiennik_pionowy['cena'] = '0,00';
+            $wymiennik_pionowy_ilosc = '0';
+        } else {
+            $produkty->retrieve($dobor_zrodla_ciepla['id']);
+            $dobor_zrodla_ciepla['efficiency'] = $produkty->efficiency;
+            $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
+            $dobor_zrodla_ciepla['cena'] = $cena['cena'];
+            $suma_cena += $cena['cenao'];
+
+            $wymiennik_pionowy_ilosc = ceil(($dobor_zrodla_ciepla['efficiency'] * 1000 * 0.9) / 40); //zaokrąglanie w górę
+            $wymiennik_pionowy['id'] = 'db90a5b9-7e2d-048b-3a10-5615077f15se';
+            $produkty->retrieve($wymiennik_pionowy['id']);
+            $wymiennik_pionowy['name'] = $produkty->name;
+            $cena = product_price_from_db($db, $wymiennik_pionowy['id']);
+            $suma_cena += $cena['cenao'] * $wymiennik_pionowy_ilosc;
+            $wymiennik_pionowy['cena'] = $cena['cenao'] * $wymiennik_pionowy_ilosc;
+            $wymiennik_pionowy['cena'] = number_format($wymiennik_pionowy['cena'], 2, ',', ' ');
         }
-        $produkty->retrieve($dobor_zrodla_ciepla['id']);
-        $dobor_zrodla_ciepla['efficiency'] = $produkty->efficiency;
-        $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
-        $dobor_zrodla_ciepla['cena'] = $cena['cena'];
-        $suma_cena += $cena['cenao'];
 
         $podgrzewacz['id'] = '38bbcdc0-eed6-5de4-ce89-5615074a9ff4';
         $produkty->retrieve($podgrzewacz['id']);
@@ -130,29 +146,22 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         $podgrzewacz['cena'] = $cena['cena'];
         $suma_cena += $cena['cenao'];
 
-        $wymiennik_pionowy_ilosc = ceil(($dobor_zrodla_ciepla['efficiency'] * 1000 * 0.9) / 40); //zaokrąglanie w górę
-        $wymiennik_pionowy['id'] = 'db90a5b9-7e2d-048b-3a10-5615077f15se';
-        $produkty->retrieve($wymiennik_pionowy['id']);
-        $wymiennik_pionowy['name'] = $produkty->name;
-        $cena = product_price_from_db($db, $wymiennik_pionowy['id']);
-        $suma_cena += $cena['cenao'] * $wymiennik_pionowy_ilosc;
-        $wymiennik_pionowy['cena'] = $cena['cenao'] * $wymiennik_pionowy_ilosc;
-        $wymiennik_pionowy['cena'] = number_format($wymiennik_pionowy['cena'], 2, ',', ' ');
-
         $smarty->assign("wymiennik_pionowy", array($wymiennik_pionowy['id'], $wymiennik_pionowy['name'], $wymiennik_pionowy['cena'], $wymiennik_pionowy_ilosc));
         $smarty->assign("podgrzewacz", array($podgrzewacz['id'], $podgrzewacz['name'], $podgrzewacz['cena']));
     }
     if ($_POST['LabelTypZrCiep'] == 2) { //jeśli wybrał pompę ciepła powietrze/woda
         $dobor_zrodla_ciepla = product_data_from_db_by_power_and_name($db, $min_moc_grzewcza_kw, "Pompa ciepła", "%222-S%");
         if ($dobor_zrodla_ciepla == null) {
-            $min_moc_grzewcza_kw = 9;
-            $dobor_zrodla_ciepla = product_data_from_db_by_power_and_name($db, $min_moc_grzewcza_kw, "Pompa ciepła", "%222-S%");
+            $dobor_zrodla_ciepla['id'] = null;
+            $dobor_zrodla_ciepla['name'] = 'Brak w cenniku, pompa dobierana indywidualnie';
+            $dobor_zrodla_ciepla['cena'] = '0,00';
+        } else {
+            $produkty->retrieve($dobor_zrodla_ciepla['id']);
+            $dobor_zrodla_ciepla['efficiency'] = $produkty->efficiency;
+            $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
+            $dobor_zrodla_ciepla['cena'] = $cena['cena'];
+            $suma_cena += $cena['cenao'];
         }
-        $produkty->retrieve($dobor_zrodla_ciepla['id']);
-        $dobor_zrodla_ciepla['efficiency'] = $produkty->efficiency;
-        $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
-        $dobor_zrodla_ciepla['cena'] = $cena['cena'];
-        $suma_cena += $cena['cenao'];
 
         $podgrzewacz['id'] = '38bbcdc0-eed6-5de4-ce89-5615074a9ff4';
         $produkty->retrieve($podgrzewacz['id']);
@@ -165,24 +174,28 @@ function display_calc_results_heat($smarty, $produkty, $db) {
     if ($_POST['LabelTypZrCiep'] == 3) { //jeśli wybrał kocioł gazowy
         $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Kocioł gazowy");
         if ($dobor_zrodla_ciepla == null) {
-            $min_moc_grzewcza_kw = 35;
-            $dobor_zrodla_ciepla = product_data_from_db_by_power_and_name($db, $min_moc_grzewcza_kw, "Pompa ciepła", "%222-S%");
+            $dobor_zrodla_ciepla['id'] = null;
+            $dobor_zrodla_ciepla['name'] = 'Brak w cenniku, kocioł gazowy dobierany indywidualnie';
+            $dobor_zrodla_ciepla['cena'] = '0,00';
+        } else {
+            $produkty->retrieve($dobor_zrodla_ciepla['id']);
+            $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
+            $dobor_zrodla_ciepla['cena'] = $cena['cena'];
+            $suma_cena += $cena['cenao'];
         }
-        $produkty->retrieve($dobor_zrodla_ciepla['id']);
-        $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
-        $dobor_zrodla_ciepla['cena'] = $cena['cena'];
-        $suma_cena += $cena['cenao'];
     }
     if ($_POST['LabelTypZrCiep'] == 4) { //jeśli wybrał kocioł olejowy
         $dobor_zrodla_ciepla = product_data_from_db_by_power($db, $min_moc_grzewcza_kw, "Kocioł olejowy");
         if ($dobor_zrodla_ciepla == null) {
-            $min_moc_grzewcza_kw = 63;
-            $dobor_zrodla_ciepla = product_data_from_db_by_power_and_name($db, $min_moc_grzewcza_kw, "Pompa ciepła", "%222-S%");
+            $dobor_zrodla_ciepla['id'] = null;
+            $dobor_zrodla_ciepla['name'] = 'Brak w cenniku, kocioł olejowy dobierany indywidualnie';
+            $dobor_zrodla_ciepla['cena'] = '0,00';
+        } else {
+            $produkty->retrieve($dobor_zrodla_ciepla['id']);
+            $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
+            $dobor_zrodla_ciepla['cena'] = $cena['cena'];
+            $suma_cena += $cena['cenao'];
         }
-        $produkty->retrieve($dobor_zrodla_ciepla['id']);
-        $cena = product_price_from_db($db, $dobor_zrodla_ciepla['id']);
-        $dobor_zrodla_ciepla['cena'] = $cena['cena'];
-        $suma_cena += $cena['cenao'];
     }
 
     if ($_POST['LabelTypInstal'] == 2) { //jeśli wybrano ogrzewanie grzejnikowe
@@ -204,6 +217,14 @@ function display_calc_results_heat($smarty, $produkty, $db) {
                 $dobor_grzejnika_zw['cena'] = $cena['cena'];
                 $suma_cena += $cena['cenao'];
                 $ilosc_grzejnikow_zw++;
+                
+                $produkty->retrieve('b2a25d97-1b2d-2de7-20f6-5615079a0b97'); //zestaw przyłączeniowy do grzejnika zwykłego
+                $zestaw_przyl_zw['name'] = $produkty->name;
+                $cena = product_price_from_db($db, 'b2a25d97-1b2d-2de7-20f6-5615079a0b97');
+                $zestaw_przyl_zw['cena'] = $cena['cenao'] * $ilosc_grzejnikow_zw;
+                $suma_cena += $zestaw_przyl_zw['cena'];
+                $zestaw_przyl_zw['cena'] = number_format($zestaw_przyl_zw['cena'], 2, ',', ' ');
+                
             } elseif ($value == 9) { //jeśli wybrał łazienkę
                 if ($potrzebna_moc < 359) {
                     $dobor_grzejnika_laz = product_data_from_db_by_power($db, $potrzebna_moc, $kategoria_lazienkowe);
@@ -215,13 +236,22 @@ function display_calc_results_heat($smarty, $produkty, $db) {
                 $dobor_grzejnika_laz['cena'] = $cena['cena'];
                 $suma_cena += $cena['cenao'];
                 $ilosc_grzejnikow_laz++;
+                
+                $produkty->retrieve('ad0715ff-c9d1-90ad-1b0b-56150705cf7f'); //zestaw przyłączeniowy do grzejnika łazienkowego
+                $zestaw_przyl_laz['name'] = $produkty->name;
+                $cena = product_price_from_db($db, 'ad0715ff-c9d1-90ad-1b0b-56150705cf7f');
+                $zestaw_przyl_laz['cena'] = $cena['cenao'] * $ilosc_grzejnikow_laz;
+                $suma_cena += $zestaw_przyl_laz['cena'];
+                $zestaw_przyl_laz['cena'] = number_format($zestaw_przyl_laz['cena'], 2, ',', ' ');
             }
         }
         if ($ilosc_grzejnikow_zw != 0) {
             $smarty->assign("grzejniki_zwykle", array($dobor_grzejnika_zw['id'], $dobor_grzejnika_zw['name'], $dobor_grzejnika_zw['cena'], $ilosc_grzejnikow_zw));
+            $smarty->assign("zestaw_przyl_zwykly", array('b2a25d97-1b2d-2de7-20f6-5615079a0b97', $zestaw_przyl_zw['name'],  $zestaw_przyl_laz['cena'], $ilosc_grzejnikow_zw));
         }
         if ($ilosc_grzejnikow_laz != 0) {
             $smarty->assign("grzejniki_lazienkowe", array($dobor_grzejnika_laz['id'], $dobor_grzejnika_laz['name'], $dobor_grzejnika_laz['cena'], $ilosc_grzejnikow_laz));
+            $smarty->assign("zestaw_przyl_lazienkowy", array('ad0715ff-c9d1-90ad-1b0b-56150705cf7f', $zestaw_przyl_laz['name'], $zestaw_przyl_laz['cena'], $ilosc_grzejnikow_laz));
         }
     }
 
@@ -231,6 +261,7 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         $ilosc_obiegow = ceil($pow_calkowita / 10);
         $ilosc_zlaczek = $ilosc_obiegow * 2;
         $ilosc_spinek = $ilosc_rury * 5;
+        $ilosc_roz_szaf = 1;
 
         if ($ilosc_obiegow == 2) { //definiowanie wielkości rozdzielaczy obwodów grzejnych
             $wielkosc_rozdzielaczy = '4956949b-7e75-a4a3-aa3b-5615079a6dc6';
@@ -262,23 +293,30 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         } elseif ($ilosc_obiegow == 11) {
             $wielkosc_rozdzielaczy = '62623f67-8c1a-8d16-f3ce-561507b11285';
             $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d';
-        } else {
+        } elseif ($ilosc_obiegow == 12) {
             $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
             $wielkosc_szafki = '75a95617-6a06-0c7b-478c-561507e905c9';
+        } else {
+            $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
+            $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d';
+            $ilosc_roz_szaf = ceil($ilosc_obiegow / 12);
+            $ilosc_zlaczek = $ilosc_roz_szaf * 12;
         }
         $produkty->retrieve($wielkosc_rozdzielaczy); //rozdzielacz
         $rozdzielacz['name'] = $produkty->name;
         $cena = product_price_from_db($db, $wielkosc_rozdzielaczy);
-        $rozdzielacz['cena'] = $cena['cena'];
-        $suma_cena += $cena['cenao'];
-        $smarty->assign("rozdzielacz", array($wielkosc_rozdzielaczy, $rozdzielacz['name'], $rozdzielacz['cena']));
+        $rozdzielacz['cena'] = $cena['cenao'] * $ilosc_roz_szaf;
+        $suma_cena += $rozdzielacz['cena'];
+        $rozdzielacz['cena'] = number_format($rozdzielacz['cena'], 2, ',', ' ');
+        $smarty->assign("rozdzielacz", array($wielkosc_rozdzielaczy, $rozdzielacz['name'], $rozdzielacz['cena'], $ilosc_roz_szaf));
 
         $produkty->retrieve($wielkosc_szafki); //szafka
         $szafka['name'] = $produkty->name;
         $cena = product_price_from_db($db, $wielkosc_szafki);
-        $szafka['cena'] = $cena['cena'];
-        $suma_cena += $cena['cenao'];
-        $smarty->assign("szafka", array($wielkosc_szafki, $szafka['name'], $szafka['cena']));
+        $szafka['cena'] = $cena['cenao'] * $ilosc_roz_szaf;
+        $suma_cena += $szafka['cena'];
+        $szafka['cena'] = number_format($szafka['cena'], 2, ',', ' ');
+        $smarty->assign("szafka", array($wielkosc_szafki, $szafka['name'], $szafka['cena'], $ilosc_roz_szaf));
 
         $produkty->retrieve('43d195b3-108c-fd26-2b6f-561507d7f2f1'); //złączka
         $zlaczka['name'] = $produkty->name;

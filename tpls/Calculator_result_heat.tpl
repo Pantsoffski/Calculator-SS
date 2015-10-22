@@ -19,7 +19,7 @@
             <span>{$dobor_zrodla_ciepla[1]}</span>
         </td>
         <td class="calcTd calcPrCen">
-            <span>1</span>
+            <span>{if isset($dobor_zrodla_ciepla[0])}1{else}0{/if}</span>
         </td>
         <td class="calcTd calcPrCen">
             <span>{$dobor_zrodla_ciepla[2]}</span>
@@ -89,6 +89,38 @@
         </td>
     </tr>
     {/if}
+    {if isset($zestaw_przyl_zwykly)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$zestaw_przyl_zwykly[1]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$zestaw_przyl_zwykly[3]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$zestaw_przyl_zwykly[2]}</span>
+        </td>
+    </tr>
+    {/if}
+    {if isset($zestaw_przyl_lazienkowy)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$zestaw_przyl_lazienkowy[1]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$zestaw_przyl_lazienkowy[3]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$zestaw_przyl_lazienkowy[2]}</span>
+        </td>
+    </tr>
+    {/if}
     {if isset($rozdzielacz)}
     <tr>
         <td class="calcTd calcPrNum">
@@ -98,7 +130,7 @@
             <span>{$rozdzielacz[1]}</span>
         </td>
         <td class="calcTd calcPrCen">
-            <span>1</span>
+            <span>{$rozdzielacz[3]}</span>
         </td>
         <td class="calcTd calcPrCen">
             <span>{$rozdzielacz[2]}</span>
@@ -130,7 +162,7 @@
             <span>{$szafka[1]}</span>
         </td>
         <td class="calcTd calcPrCen">
-            <span>1</span>
+            <span>{$szafka[3]}</span>
         </td>
         <td class="calcTd calcPrCen">
             <span>{$szafka[2]}</span>
@@ -194,8 +226,8 @@
                 type=      "button"
                 name=      "button"
                 onclick=   "
-                        id = '{$dobor_zrodla_ciepla[0]}{if isset($wymiennik_pionowy)},{$wymiennik_pionowy[0]}{/if}{if isset($podgrzewacz)},{$podgrzewacz[0]}{/if}{if isset($grzejniki_zwykle)},{$grzejniki_zwykle[0]}{/if}{if isset($grzejniki_lazienkowe)},{$grzejniki_lazienkowe[0]}{/if}{if isset($rozdzielacz)},{$rozdzielacz[0]}{/if}{if isset($rura)},{$rura[0]}{/if}{if isset($szafka)},{$szafka[0]}{/if}{if isset($zlaczka)},{$zlaczka[0]}{/if}{if isset($spinka)},{$spinka[0]}{/if}';
-                        quantity = '1{if isset($wymiennik_pionowy)},{$wymiennik_pionowy[3]}{/if}{if isset($podgrzewacz)},1{/if}{if isset($grzejniki_zwykle)},{$grzejniki_zwykle[3]}{/if}{if isset($grzejniki_lazienkowe)},{$grzejniki_lazienkowe[3]}{/if}{if isset($rozdzielacz)},1{/if}{if isset($rura)},{$rura[3]}{/if}{if isset($szafka)},1{/if}{if isset($zlaczka)},{$zlaczka[3]}{/if}{if isset($spinka)},{$spinka[3]}{/if}';
+                        id = '{if isset($dobor_zrodla_ciepla[0])}{$dobor_zrodla_ciepla[0]}{/if}{if isset($wymiennik_pionowy[0])},{$wymiennik_pionowy[0]}{/if}{if isset($podgrzewacz)},{$podgrzewacz[0]}{/if}{if isset($grzejniki_zwykle)},{$grzejniki_zwykle[0]}{/if}{if isset($grzejniki_lazienkowe)},{$grzejniki_lazienkowe[0]}{/if}{if isset($rozdzielacz)},{$rozdzielacz[0]}{/if}{if isset($rura)},{$rura[0]}{/if}{if isset($szafka)},{$szafka[0]}{/if}{if isset($zlaczka)},{$zlaczka[0]}{/if}{if isset($spinka)},{$spinka[0]}{/if}{if isset($zestaw_przyl_lazienkowy)},{$zestaw_przyl_lazienkowy[0]}{/if}{if isset($zestaw_przyl_zwykly)},{$zestaw_przyl_zwykly[0]}{/if}';
+                        quantity = '{if isset($dobor_zrodla_ciepla[0])}1{/if}{if isset($wymiennik_pionowy[0])},{$wymiennik_pionowy[3]}{/if}{if isset($podgrzewacz)},1{/if}{if isset($grzejniki_zwykle)},{$grzejniki_zwykle[3]}{/if}{if isset($grzejniki_lazienkowe)},{$grzejniki_lazienkowe[3]}{/if}{if isset($rozdzielacz)},{$rozdzielacz[3]}{/if}{if isset($rura)},{$rura[3]}{/if}{if isset($szafka)},{$szafka[3]}{/if}{if isset($zlaczka)},{$zlaczka[3]}{/if}{if isset($spinka)},{$spinka[3]}{/if}{if isset($zestaw_przyl_lazienkowy)},{$zestaw_przyl_lazienkowy[3]}{/if}{if isset($zestaw_przyl_zwykly)},{$zestaw_przyl_zwykly[3]}{/if}';
                         addProductToCard(id,quantity);
                         location.href = 'index.php?module=EcmB2BProducts&action=ShoppingCard';
                            "
