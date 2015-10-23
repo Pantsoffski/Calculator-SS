@@ -217,14 +217,13 @@ function display_calc_results_heat($smarty, $produkty, $db) {
                 $dobor_grzejnika_zw['cena'] = $cena['cena'];
                 $suma_cena += $cena['cenao'];
                 $ilosc_grzejnikow_zw++;
-                
+
                 $produkty->retrieve('b2a25d97-1b2d-2de7-20f6-5615079a0b97'); //zestaw przyłączeniowy do grzejnika zwykłego
                 $zestaw_przyl_zw['name'] = $produkty->name;
                 $cena = product_price_from_db($db, 'b2a25d97-1b2d-2de7-20f6-5615079a0b97');
                 $zestaw_przyl_zw['cena'] = $cena['cenao'] * $ilosc_grzejnikow_zw;
                 $suma_cena += $zestaw_przyl_zw['cena'];
                 $zestaw_przyl_zw['cena'] = number_format($zestaw_przyl_zw['cena'], 2, ',', ' ');
-                
             } elseif ($value == 9) { //jeśli wybrał łazienkę
                 if ($potrzebna_moc < 359) {
                     $dobor_grzejnika_laz = product_data_from_db_by_power($db, $potrzebna_moc, $kategoria_lazienkowe);
@@ -236,7 +235,7 @@ function display_calc_results_heat($smarty, $produkty, $db) {
                 $dobor_grzejnika_laz['cena'] = $cena['cena'];
                 $suma_cena += $cena['cenao'];
                 $ilosc_grzejnikow_laz++;
-                
+
                 $produkty->retrieve('ad0715ff-c9d1-90ad-1b0b-56150705cf7f'); //zestaw przyłączeniowy do grzejnika łazienkowego
                 $zestaw_przyl_laz['name'] = $produkty->name;
                 $cena = product_price_from_db($db, 'ad0715ff-c9d1-90ad-1b0b-56150705cf7f');
@@ -247,7 +246,7 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         }
         if ($ilosc_grzejnikow_zw != 0) {
             $smarty->assign("grzejniki_zwykle", array($dobor_grzejnika_zw['id'], $dobor_grzejnika_zw['name'], $dobor_grzejnika_zw['cena'], $ilosc_grzejnikow_zw));
-            $smarty->assign("zestaw_przyl_zwykly", array('b2a25d97-1b2d-2de7-20f6-5615079a0b97', $zestaw_przyl_zw['name'],  $zestaw_przyl_zw['cena'], $ilosc_grzejnikow_zw));
+            $smarty->assign("zestaw_przyl_zwykly", array('b2a25d97-1b2d-2de7-20f6-5615079a0b97', $zestaw_przyl_zw['name'], $zestaw_przyl_zw['cena'], $ilosc_grzejnikow_zw));
         }
         if ($ilosc_grzejnikow_laz != 0) {
             $smarty->assign("grzejniki_lazienkowe", array($dobor_grzejnika_laz['id'], $dobor_grzejnika_laz['name'], $dobor_grzejnika_laz['cena'], $ilosc_grzejnikow_laz));
@@ -295,10 +294,10 @@ function display_calc_results_heat($smarty, $produkty, $db) {
             $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d';
         } elseif ($ilosc_obiegow == 12) {
             $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
-            $wielkosc_szafki = '75a95617-6a06-0c7b-478c-561507e905c9';
+            $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d';
         } else {
             $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
-            $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d';
+            $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d'; //14: 75a95617-6a06-0c7b-478c-561507e905c9
             $ilosc_roz_szaf = ceil($ilosc_obiegow / 12);
             $ilosc_zlaczek = $ilosc_roz_szaf * 12;
         }
