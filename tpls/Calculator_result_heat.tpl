@@ -137,6 +137,38 @@
         </td>
     </tr>
     {/if}
+    {if isset($rozdzielacz2)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$rozdzielacz2[1]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$rozdzielacz2[3]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$rozdzielacz2[2]}</span>
+        </td>
+    </tr>
+    {/if}
+    {if isset($rozdzielacz_brak)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$rozdzielacz_brak[0]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$rozdzielacz_brak[2]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$rozdzielacz_brak[1]}</span>
+        </td>
+    </tr>
+    {/if}
     {if isset($rura)}
     <tr>
         <td class="calcTd calcPrNum">
@@ -166,6 +198,38 @@
         </td>
         <td class="calcTd calcPrCen">
             <span>{$szafka[2]}</span>
+        </td>
+    </tr>
+    {/if}
+    {if isset($szafka2)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$szafka2[1]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$szafka2[3]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$szafka2[2]}</span>
+        </td>
+    </tr>
+    {/if}
+    {if isset($szafka_brak)}
+    <tr>
+        <td class="calcTd calcPrNum">
+            <div class="calcLp"></div>
+        </td>
+        <td class="calcTd calcPr">
+            <span>{$szafka_brak[0]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$szafka_brak[2]}</span>
+        </td>
+        <td class="calcTd calcPrCen">
+            <span>{$szafka_brak[1]}</span>
         </td>
     </tr>
     {/if}
