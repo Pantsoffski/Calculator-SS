@@ -295,27 +295,104 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         } elseif ($ilosc_obiegow == 12) {
             $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
             $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d';
-        } else {
+        } elseif ($ilosc_obiegow <= 14) {
             $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
-            $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d'; //14: 75a95617-6a06-0c7b-478c-561507e905c9
+            $wielkosc_rozdzielaczy2 = '4956949b-7e75-a4a3-aa3b-5615079a6dc6';
+            $wielkosc_szafki = '75a95617-6a06-0c7b-478c-561507e905c9';
+        } elseif ($ilosc_obiegow == 15) {
+            $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
+            $wielkosc_rozdzielaczy2 = '4c21f5a7-dc88-f7e7-ebd2-561507823c4c';
+            $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d';
+            $wielkosc_szafki2 = '67df9ef6-d408-6813-b1e8-5615073fa32d';
+        } elseif ($ilosc_obiegow == 16) {
+            $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
+            $wielkosc_rozdzielaczy2 = '4eda2cc8-2c71-6b7f-c247-561507050f95';
+            $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d';
+            $wielkosc_szafki2 = '67df9ef6-d408-6813-b1e8-5615073fa32d';
+        } elseif ($ilosc_obiegow == 17) {
+            $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
+            $wielkosc_rozdzielaczy2 = '51a5f898-5016-8aef-81b9-561507d9b8f1';
+            $wielkosc_szafki = '75a95617-6a06-0c7b-478c-561507e905c9';
+            $wielkosc_szafki2 = '67df9ef6-d408-6813-b1e8-5615073fa32d';
+        } elseif ($ilosc_obiegow == 18) {
+            $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
+            $wielkosc_rozdzielaczy2 = '5471d357-a088-3788-bfeb-561507f58be6';
+            $wielkosc_szafki = '75a95617-6a06-0c7b-478c-561507e905c9';
+            $wielkosc_szafki2 = '67df9ef6-d408-6813-b1e8-5615073fa32d';
+        } elseif ($ilosc_obiegow == 19) {
+            $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
+            $wielkosc_rozdzielaczy2 = '573fc45a-ba45-f4e5-e3c7-5615079152b8';
+            $wielkosc_szafki = '75a95617-6a06-0c7b-478c-561507e905c9';
+            $wielkosc_szafki2 = '6aa36386-3cf2-5362-6f4f-5615074a4280';
+        } elseif ($ilosc_obiegow == 20) {
+            $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
+            $wielkosc_rozdzielaczy2 = '5a11a2ea-033a-6e3d-5abf-56150726d4e4';
+            $wielkosc_szafki = '75a95617-6a06-0c7b-478c-561507e905c9';
+            $wielkosc_szafki2 = '6aa36386-3cf2-5362-6f4f-5615074a4280';
+        } elseif ($ilosc_obiegow == 21) {
+            $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
+            $wielkosc_rozdzielaczy2 = '5cdcd104-b186-6fe6-715b-561507765b55';
+            $wielkosc_szafki = '75a95617-6a06-0c7b-478c-561507e905c9';
+            $wielkosc_szafki2 = '6d651bca-be19-151f-1d74-561507ca8d65';
+        } elseif ($ilosc_obiegow == 22) {
+            $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
+            $wielkosc_rozdzielaczy2 = '5fa1de14-2952-1a61-f36f-561507454418';
+            $wielkosc_szafki = '75a95617-6a06-0c7b-478c-561507e905c9';
+            $wielkosc_szafki2 = '6d651bca-be19-151f-1d74-561507ca8d65';
+        } elseif ($ilosc_obiegow == 23) {
+            $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
+            $wielkosc_rozdzielaczy2 = '62623f67-8c1a-8d16-f3ce-561507b11285';
+            $wielkosc_szafki = '75a95617-6a06-0c7b-478c-561507e905c9';
+            $wielkosc_szafki2 = '7028979f-c304-d19c-131f-56150749cb89';
+        } elseif ($ilosc_obiegow == 24) {
+            $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
+            $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d';
             $ilosc_roz_szaf = ceil($ilosc_obiegow / 12);
             $ilosc_zlaczek = $ilosc_roz_szaf * 12;
+        } else { //jeśli jest więcej niż 24 obiegi
+            $smarty->assign("rozdzielacz_brak", array('Ilość rozdzielaczy obwodów dobierana indywidualnie', '0,00', '0'));
+            $smarty->assign("szafka_brak", array('Ilość szafek rozdzielaczowych dobierana indywidualnie', '0,00', '0'));
         }
-        $produkty->retrieve($wielkosc_rozdzielaczy); //rozdzielacz
-        $rozdzielacz['name'] = $produkty->name;
-        $cena = product_price_from_db($db, $wielkosc_rozdzielaczy);
-        $rozdzielacz['cena'] = $cena['cenao'] * $ilosc_roz_szaf;
-        $suma_cena += $rozdzielacz['cena'];
-        $rozdzielacz['cena'] = number_format($rozdzielacz['cena'], 2, ',', ' ');
-        $smarty->assign("rozdzielacz", array($wielkosc_rozdzielaczy, $rozdzielacz['name'], $rozdzielacz['cena'], $ilosc_roz_szaf));
 
-        $produkty->retrieve($wielkosc_szafki); //szafka
-        $szafka['name'] = $produkty->name;
-        $cena = product_price_from_db($db, $wielkosc_szafki);
-        $szafka['cena'] = $cena['cenao'] * $ilosc_roz_szaf;
-        $suma_cena += $szafka['cena'];
-        $szafka['cena'] = number_format($szafka['cena'], 2, ',', ' ');
-        $smarty->assign("szafka", array($wielkosc_szafki, $szafka['name'], $szafka['cena'], $ilosc_roz_szaf));
+        if (isset($wielkosc_rozdzielaczy)) {
+            $produkty->retrieve($wielkosc_rozdzielaczy); //rozdzielacz
+            $rozdzielacz['name'] = $produkty->name;
+            $cena = product_price_from_db($db, $wielkosc_rozdzielaczy);
+            $rozdzielacz['cena'] = $cena['cenao'] * $ilosc_roz_szaf;
+            $suma_cena += $rozdzielacz['cena'];
+            $rozdzielacz['cena'] = number_format($rozdzielacz['cena'], 2, ',', ' ');
+            $smarty->assign("rozdzielacz", array($wielkosc_rozdzielaczy, $rozdzielacz['name'], $rozdzielacz['cena'], $ilosc_roz_szaf));
+        }
+
+        if (isset($wielkosc_rozdzielaczy2)) {
+            $produkty->retrieve($wielkosc_rozdzielaczy2); //rozdzielacz 2
+            $rozdzielacz2['name'] = $produkty->name;
+            $cena = product_price_from_db($db, $wielkosc_rozdzielaczy2);
+            $rozdzielacz2['cena'] = $cena['cenao'] * $ilosc_roz_szaf;
+            $suma_cena += $rozdzielacz2['cena'];
+            $rozdzielacz2['cena'] = number_format($rozdzielacz2['cena'], 2, ',', ' ');
+            $smarty->assign("rozdzielacz2", array($wielkosc_rozdzielaczy2, $rozdzielacz2['name'], $rozdzielacz2['cena'], $ilosc_roz_szaf));
+        }
+
+        if (isset($wielkosc_szafki)) {
+            $produkty->retrieve($wielkosc_szafki); //szafka
+            $szafka['name'] = $produkty->name;
+            $cena = product_price_from_db($db, $wielkosc_szafki);
+            $szafka['cena'] = $cena['cenao'] * $ilosc_roz_szaf;
+            $suma_cena += $szafka['cena'];
+            $szafka['cena'] = number_format($szafka['cena'], 2, ',', ' ');
+            $smarty->assign("szafka", array($wielkosc_szafki, $szafka['name'], $szafka['cena'], $ilosc_roz_szaf));
+        }
+
+        if (isset($wielkosc_szafki2)) {
+            $produkty->retrieve($wielkosc_szafki2); //szafka 2
+            $szafka2['name'] = $produkty->name;
+            $cena = product_price_from_db($db, $wielkosc_szafki2);
+            $szafka2['cena'] = $cena['cenao'] * $ilosc_roz_szaf;
+            $suma_cena += $szafka2['cena'];
+            $szafka2['cena'] = number_format($szafka2['cena'], 2, ',', ' ');
+            $smarty->assign("szafka2", array($wielkosc_szafki2, $szafka2['name'], $szafka2['cena'], $ilosc_roz_szaf));
+        }
 
         $produkty->retrieve('43d195b3-108c-fd26-2b6f-561507d7f2f1'); //złączka
         $zlaczka['name'] = $produkty->name;
@@ -387,3 +464,12 @@ function product_price_from_db($db, $id) {
     }
     return $p;
 }
+
+//$dzielnik = array(14, 12, 10, 8, 6, 4);
+//
+//foreach ($dzielnik as $liczba) {
+//    if (23 % $liczba != 0) {
+//        $zmienna = 23 % $liczba;
+//        print_r($zmienna);
+//    }
+//}
