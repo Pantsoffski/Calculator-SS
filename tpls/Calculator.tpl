@@ -66,10 +66,10 @@
         <tr>
             <td class="calcTdH calcTdHdodat" colspan="7"><b>{$MOD.LBL_CALCULATOR_INSULATE}</b>
                 <select id="Selectorek" name='LabelWspIzo'>
-                    <option value="60">Słaba</option>
-                    <option value="50">Średnia</option>
-                    <option value="35">Dobra</option>
                     <option value="25">Bardzo dobra</option>
+                    <option value="35">Dobra</option>
+                    <option value="50">Średnia</option>
+                    <option value="60">Słaba</option>
                 </select>
             </td>
         </tr>

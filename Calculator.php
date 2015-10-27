@@ -347,8 +347,8 @@ function display_calc_results_heat($smarty, $produkty, $db) {
         } elseif ($ilosc_obiegow == 24) {
             $wielkosc_rozdzielaczy = '6522f6bf-e2a8-b979-ccd6-561507bf2423';
             $wielkosc_szafki = '72e509c4-5e75-ef1c-3ff0-561507a6b45d';
-            $ilosc_roz_szaf = ceil($ilosc_obiegow / 12);
-            $ilosc_zlaczek = $ilosc_roz_szaf * 12;
+            $ilosc_roz_szaf = 2;
+            $ilosc_zlaczek = 24;
         } else { //jeśli jest więcej niż 24 obiegi
             $smarty->assign("rozdzielacz_brak", array('Ilość rozdzielaczy obwodów dobierana indywidualnie', '0,00', '0'));
             $smarty->assign("szafka_brak", array('Ilość szafek rozdzielaczowych dobierana indywidualnie', '0,00', '0'));
@@ -464,12 +464,3 @@ function product_price_from_db($db, $id) {
     }
     return $p;
 }
-
-//$dzielnik = array(14, 12, 10, 8, 6, 4);
-//
-//foreach ($dzielnik as $liczba) {
-//    if (23 % $liczba != 0) {
-//        $zmienna = 23 % $liczba;
-//        print_r($zmienna);
-//    }
-//}
